@@ -1,0 +1,23 @@
+{
+  "built_at": "2026-09-09T12:18:17",
+  "embedding_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "dim": 384,
+  "n_chunks": 244,
+  "docs": [
+    [
+      "KR_GUIDANCE_2026_PART2",
+      "2026"
+    ],
+    [
+      "KR_RULES_2026_PART2",
+      "2026"
+    ]
+  ],
+  "chunking": {
+    "unit": "article(조)",
+    "max_tokens": 700,
+    "overlap": "1 paragraph(항)",
+    "breadcrumb_prefix": true
+  },
+  "bm25": "char 2/3-gram, rank_bm25 BM25Plus"
+}
