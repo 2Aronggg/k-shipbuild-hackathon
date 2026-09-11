@@ -24,17 +24,6 @@
 
 Train:Val ≈ 8:2 (AI Hub 배포 시점 기준 Training/Validation 분할 그대로 사용)
 
-### 폴더 구조
-
-weld_db/
-├── images/
-│ ├── train/ # 학습용 이미지
-│ └── val/ # 검증용 이미지
-├── labels/
-│ ├── train/ # 학습용 라벨 (JSON, polygon)
-│ └── val/ # 검증용 라벨 (JSON, polygon)
-└── metadata.csv # 이미지-라벨 매칭 및 클래스/split 인덱스
-
 
 ### 재현 방법
 원본 데이터는 용량 문제로 레포에 포함하지 않음. 아래 순서로 재구성 가능:
