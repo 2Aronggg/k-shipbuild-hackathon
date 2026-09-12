@@ -6,41 +6,11 @@
 
 ## 2. 전체 파이프라인
 
-```mermaid
-flowchart LR
-    subgraph BUILD[사전 구축·학습]
-        direction TB
-        IMGDB["이미지 DB<br/>RT 이미지 + Polygon 라벨<br/>균열 2,054쌍"]
-        TRAIN["YOLOv8-seg Fine-tuning"]
-        MODEL["결함 탐지 모델"]
-        KRPDF["KR 2026 규정 PDF"]
-        INDEX["조항 단위 청킹·임베딩"]
-        REGDB["하이브리드 규정 DB<br/>244개 청크 + RT 판정표"]
-        KS["향후 확장<br/>KS B 0845 추가"]
+최종 파이프라인 다이어그램은 아래 FigJam 보드에서 관리한다.
 
-        IMGDB --> TRAIN --> MODEL
-        KRPDF --> INDEX --> REGDB
-        KS -.-> REGDB
-    end
+[WeldScan AI RAG 파이프라인 아키텍처 - FigJam](https://www.figma.com/board/dG3AMjHgWIdhL9usLUOZmp/-K-%EC%A1%B0%EC%84%A0--RAG-%ED%8C%8C%EC%9D%B4%ED%94%84%EB%9D%BC%EC%9D%B8?node-id=2-2)
 
-    subgraph RUNTIME[검사·판독 워크플로우]
-        direction LR
-        INPUT["검사 정보 입력<br/>RT 이미지·부위·재질·모재 두께"]
-        DETECT["결함 탐지 AI<br/>종류·위치·크기·신뢰도"]
-        QUERY["규정 질의 구조화"]
-        RAG["RAG 근거 검색<br/>Dense + BM25"]
-        RULE["룰 엔진 판정<br/>등급·합불·권고사항"]
-        LLM["LLM 보고서 초안<br/>근거 인용 + 맞춤 설명"]
-        REVIEW["자격 보유 검사자<br/>검토·수정·최종 승인"]
-
-        INPUT --> DETECT --> QUERY --> RAG --> RULE --> LLM --> REVIEW
-    end
-
-    LEVEL["검사원 숙련도<br/>초급·중급·고급"]
-    MODEL --> DETECT
-    REGDB --> RAG
-    LEVEL -. "설명 깊이에만 반영" .-> LLM
-```
+FigJam을 다이어그램의 단일 원본으로 사용하며, 제출 장표에는 해당 보드에서 내보낸 SVG 또는 PNG를 삽입한다. 파이프라인의 구성요소와 세부 입출력 정의는 아래 절을 기준으로 유지한다.
 
 ## 3. 단계별 입출력
 
