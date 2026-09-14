@@ -113,12 +113,12 @@ python build_vector_db.py --src sources.yaml --out out \
 
 ## 3. WeldScan 품질 관제 대시보드
 
-`weldscan_dashboard_1.html`은 용접 비파괴검사(NDT) 결과와 한국선급(KR) 규정 판정의 일관성을 한 화면에서 확인하는 정적 관리자 대시보드입니다. 별도의 빌드 도구나 백엔드 없이 브라우저에서 바로 열 수 있습니다.
+[`weldscan_dashboard/`](weldscan_dashboard/)는 용접 비파괴검사(NDT) 결과와 한국선급(KR) 규정 판정의 일관성을 한 화면에서 확인하는 정적 관리자 대시보드입니다. 별도의 빌드 도구나 백엔드 없이 브라우저에서 바로 열 수 있습니다.
 
 ### 실행
 
 ```bash
-open weldscan_dashboard_1.html
+open weldscan_dashboard/weldscan_dashboard.html
 ```
 
 또는 파일을 브라우저 창으로 직접 드래그해도 됩니다. 화면은 다음 기능을 제공합니다.
@@ -135,7 +135,7 @@ open weldscan_dashboard_1.html
 
 대시보드는 `kr_reg_vectordb/tables/kr_appx2-7_rt_tables.json`의 규정 판정표와 `kr_reg_vectordb/out/`의 조항 메타데이터를 근거로 사용합니다. 판정 이력·보고서 검토·에스컬레이션 데이터는 화면 동작을 위한 합성 데이터이며, 규정 판정표·조항·모델 성능 지표는 실데이터 기반입니다. 현재 학습 모델은 기공 단일 클래스이고, 픽셀-실치수 환산값과 KS B 0845 원문은 확정되지 않았으므로 화면의 전제 조건을 함께 확인해야 합니다.
 
-기획안과 구현 사이의 변경 사항, 데이터 한계, 미구현 항목은 [`design-decisions.md`](design-decisions.md)에 기록했습니다.
+기획안과 구현 사이의 변경 사항, 데이터 한계, 미구현 항목은 [`weldscan_dashboard/docs/design-decisions.md`](weldscan_dashboard/docs/design-decisions.md)에 기록했습니다.
 
 ## 라이선스 및 주의사항
 
