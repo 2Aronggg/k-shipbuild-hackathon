@@ -1,6 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=42dot+Sans:wght@400;600;700&family=ABeeZee:ital@0;1&family=Alata&family=Amethysta&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import 'tailwindcss';
 
+:root {
+  --ws-navy: #071426;
+  --ws-navy-soft: #10243D;
+  --ws-surface: #161617;
+  --ws-surface-raised: #2B3A37;
+  --ws-primary: #3397D4;
+  --ws-primary-hover: #60B7EA;
+  --ws-border: #41626A;
+  --ws-text: #F4F8FB;
+  --ws-muted: #86868B;
+  --ws-radius-sm: 5px;
+  --ws-radius-md: 10px;
+}
+
 @layer base {
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;

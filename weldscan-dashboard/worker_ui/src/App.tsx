@@ -2,9 +2,9 @@ import React, { useState, useRef } from 'react';
 import { 
   ZoomIn, ZoomOut, RotateCcw, Eye, ShieldAlert, CheckCircle2, 
   ArrowUpRight, Pin, ChevronRight, FileText, ChevronDown, ChevronUp,
-  Info, HardHat, Layers, Check, X, Activity, Image as ImageIcon, Sliders, AlertTriangle, Trash2
+  Info, Layers, Check, X, Activity, Image as ImageIcon, Sliders, AlertTriangle, Trash2
 } from 'lucide-react';
-import attachedRtImage from './imports/ChatGPT_Image_2026__9__11_____01_12_32.png';
+const CURRENT_RT_IMAGE = '/assets/rt/RT_panel_1.png';
 
 // --- DATA DEFINITIONS (POROSITY ONLY) ---
 
@@ -30,6 +30,8 @@ interface PorosityRegion {
 interface SimilarCase {
   id: string;
   caseId: string;
+  image: string;
+  label: string;
   vessel: string;
   similarity: number; // 데모 값
   porosityType: string;
@@ -101,36 +103,68 @@ const POROSITY_REGIONS: PorosityRegion[] = [
 const SIMILAR_CASES: SimilarCase[] = [
   {
     id: 'sc1',
-    caseId: 'RT-2026-0412-8821',
+    caseId: 'CASE-001',
+    image: '/assets/rt/RT_panel_2.png',
+    label: '사례 #01',
     vessel: 'H-3412 (VLCC)',
     similarity: 94,
-    porosityType: '루트 용접부 군집 기공',
-    historicalDecision: '재용접',
+    porosityType: '기공',
+    historicalDecision: '2급',
     actionTaken: '가우징 20mm 후 FCAW 재용접',
     statusColor: 'red',
     note: '기공 직경 3.5mm 초과로 규격 미달. 재용접 후 UT 검사 통과.',
   },
   {
     id: 'sc2',
-    caseId: 'RT-2025-1104-3019',
+    caseId: 'CASE-002',
+    image: '/assets/rt/RT_panel_3.png',
+    label: '사례 #02',
     vessel: 'H-3398 (174k LNG)',
-    similarity: 88,
-    porosityType: '채움 용접부 단일 기공',
-    historicalDecision: '합격',
+    similarity: 91,
+    porosityType: '기공',
+    historicalDecision: '2급',
     actionTaken: 'ISO 5817 Level C 기준 충족으로 승인',
     statusColor: 'green',
     note: '기공 직경 2.0mm 이하로 허용 기준 이내.',
   },
   {
     id: 'sc3',
-    caseId: 'RT-2026-0118-1290',
+    caseId: 'CASE-003',
+    image: '/assets/rt/RT_panel_4.png',
+    label: '사례 #03',
     vessel: 'H-3401 (15k TEU)',
-    similarity: 81,
-    porosityType: '표면 미세 기공',
-    historicalDecision: '재확인',
+    similarity: 87,
+    porosityType: '기공',
+    historicalDecision: '3급',
     actionTaken: '표면 그라인딩 후 2차 재검사',
     statusColor: 'amber',
     note: '그라인딩 제거 후 재촬영하여 합격 처리됨.',
+  },
+  {
+    id: 'sc4',
+    caseId: 'CASE-004',
+    image: '/assets/rt/RT_panel_5.png',
+    label: '사례 #04',
+    vessel: 'H-3387 (LPGC)',
+    similarity: 83,
+    porosityType: '기공',
+    historicalDecision: '2급',
+    actionTaken: '현장 검사원 확인 후 승인',
+    statusColor: 'green',
+    note: '유사 위치의 단일 기공 사례로 허용 기준 이내.',
+  },
+  {
+    id: 'sc5',
+    caseId: 'CASE-005',
+    image: '/assets/rt/RT_panel_6.png',
+    label: '사례 #05',
+    vessel: 'H-3420 (Container)',
+    similarity: 79,
+    porosityType: '기공',
+    historicalDecision: '3급',
+    actionTaken: '보수 용접 후 재촬영',
+    statusColor: 'amber',
+    note: '군집 기공 확인 후 보수 용접 및 재검사 진행.',
   },
 ];
 
@@ -335,8 +369,9 @@ export default function App() {
       <header className="h-14 bg-[#161617] text-[#F4F8FB] px-4 flex items-center justify-between border-b border-[#333336] shrink-0">
         <div className="flex items-center gap-4 text-sm">
           <div className="flex items-center gap-2 pr-3 border-r border-[#333336]">
-            <HardHat className="w-5 h-5 text-[#9FC6F4] shrink-0" />
-            <span className="font-semibold tracking-wide text-[#F4F8FB] text-[30px] font-['Amethysta']">RT - 대시보드</span>
+            <span className="w-8 h-8 rounded-[8px] bg-[#3397D4] text-white grid place-items-center font-bold text-sm shadow-sm">W</span>
+            <span className="font-semibold tracking-tight text-[#F4F8FB] text-lg">WeldScan</span>
+            <span className="text-[11px] text-[#86868B] font-mono">WORKER</span>
           </div>
 
           <div className="flex items-center gap-4 text-[#D2D2D7] text-sm">
@@ -360,6 +395,11 @@ export default function App() {
         </div>
 
         <div className="flex items-center gap-3">
+          <div className="hidden xl:flex items-center gap-2 px-3 h-9 rounded-[5px] border border-[#41626A] bg-[#2B3A37] text-xs text-[#D2D2D7]">
+            <span className="w-2 h-2 rounded-full bg-amber-400" />
+            <span>현재 상태</span>
+            <strong className="text-[#F4F8FB] font-medium">검토 진행 중</strong>
+          </div>
           <button
             onClick={() => fileInputRef.current?.click()}
             className="flex items-center gap-1.5 h-9 px-3 text-xs bg-[#333336] hover:bg-[#41626A] text-[#F4F8FB] rounded-[5px] border border-[#41626A] font-medium transition-colors"
@@ -420,9 +460,14 @@ export default function App() {
         <div className="w-full md:w-[62%] lg:w-[65%] flex flex-col bg-[#161617] border-r border-[#333336] relative">
           
           {/* VIEWER CONTROLS TOOLBAR (TOUCH-OPTIMIZED HEIGHT) */}
-          <div className="h-12 bg-[#333336] border-b border-[#41626A] px-3 flex items-center justify-between text-sm text-[#D2D2D7] shrink-0">
+          <div className="min-h-12 bg-[#333336] border-b border-[#41626A] px-3 py-1.5 flex items-center justify-between gap-3 text-sm text-[#D2D2D7] shrink-0">
             {/* View Mode Toggle */}
-            <div className="flex items-center bg-[#161617] p-1 rounded-[5px] border border-[#41626A] gap-1 font-['42dot_Sans']">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="min-w-0">
+                <div className="text-sm font-semibold text-[#F4F8FB]">현재 검사 영상</div>
+                <div className="text-[11px] text-[#86868B] truncate">RT-2026-0910-4082 · 신규 RT 검사</div>
+              </div>
+              <div className="flex items-center bg-[#161617] p-1 rounded-[5px] border border-[#41626A] gap-1 font-['42dot_Sans']">
               <button
                 onClick={() => setViewMode('overlay')}
                 className={`h-8 px-3 rounded-[3px] text-xs font-medium transition-colors ${
@@ -439,6 +484,7 @@ export default function App() {
               >
                 원본 RT 사진
               </button>
+              </div>
             </div>
 
             {/* Touch-Friendly Zoom & Pin Controls */}
@@ -549,7 +595,7 @@ export default function App() {
                   />
                 ) : (
                   <img
-                    src={attachedRtImage}
+                    src={CURRENT_RT_IMAGE}
                     alt="RT Weld Radiograph"
                     className="w-full h-full object-contain pointer-events-none"
                   />
@@ -663,46 +709,53 @@ export default function App() {
           </div>
 
           {/* SIMILAR HISTORICAL CASES STRIP (IMAGE-FIRST WITH COMPARISON ACTION) */}
-          <div className="h-[155px] bg-[#161617] border-t border-[#333336] p-2.5 flex flex-col shrink-0">
-            <div className="flex items-center justify-between mb-1.5 px-1">
-              <span className="text-sm font-semibold text-[#D2D2D7]">
-                유사 과거 RT 기공 사례
+          <section className="h-[226px] bg-[#161617] border-t border-[#41626A] p-3 flex flex-col shrink-0" aria-labelledby="similar-cases-title">
+            <div className="flex items-start justify-between gap-3 mb-2 px-0.5">
+              <div>
+                <h2 id="similar-cases-title" className="text-sm font-semibold text-[#F4F8FB]">과거 유사 기공 사례</h2>
+                <p className="text-[11px] text-[#86868B] mt-0.5">현재 검사와 형태가 유사한 과거 RT 검사 사례입니다.</p>
+              </div>
+              <span className="text-[10px] whitespace-nowrap text-[#9FC6F4] bg-[#2B3A37] border border-[#41626A] rounded px-2 py-1 font-mono">
+                AI Similarity Search
               </span>
-              <span className="text-xs text-[#86868B]">카드 클릭 시 RT 이미지 직접 비교</span>
             </div>
 
-            <div className="flex-1 flex gap-3 overflow-x-auto pb-1">
+            <div className="flex-1 grid grid-flow-col auto-cols-[minmax(164px,1fr)] xl:grid-flow-row xl:grid-cols-5 gap-2 overflow-x-auto xl:overflow-visible pb-1">
               {SIMILAR_CASES.map((sc) => (
-                <div
+                <button
+                  type="button"
                   key={sc.id}
                   onClick={() => setComparisonCase(sc)}
-                  className="w-[185px] shrink-0 bg-[#333336] hover:bg-[#2B3A37] border border-[#41626A] hover:border-[#3397D4] rounded p-2 cursor-pointer transition-all flex flex-col justify-between group"
+                  className={`min-w-0 text-left bg-[#333336] hover:bg-[#2B3A37] border rounded-[5px] p-1.5 cursor-pointer transition-colors flex flex-col group focus:outline-none focus:ring-2 focus:ring-[#3397D4] ${
+                    comparisonCase?.id === sc.id ? 'border-[#3397D4]' : 'border-[#41626A] hover:border-[#3397D4]'
+                  }`}
                 >
                   {/* Image-First RT Case Canvas Preview */}
-                  <div className="h-16 bg-[#161617] rounded relative overflow-hidden border border-[#41626A] flex items-center justify-center mb-1">
+                  <div className="h-[88px] bg-[#161617] rounded-[3px] relative overflow-hidden border border-[#41626A] flex items-center justify-center mb-1.5">
                     <img
-                      src={uploadedImage || attachedRtImage}
-                      alt="Historical RT Case"
-                      className="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity"
+                      src={sc.image}
+                      alt={`${sc.label} 과거 RT 영상`}
+                      className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                    <div className="absolute top-1 right-1 bg-[#161617]/90 text-[#9FC6F4] font-mono font-bold text-xs px-1.5 py-0.5 rounded border border-[#41626A]">
-                      {sc.similarity}% 일치
-                    </div>
                   </div>
 
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="font-mono text-[#D2D2D7] truncate">{sc.caseId}</span>
-                    <span className={`text-xs font-medium px-1.5 py-0.5 rounded ${
-                      sc.statusColor === 'red' ? 'text-red-300 bg-red-950' : sc.statusColor === 'amber' ? 'text-amber-300 bg-amber-950' : 'text-teal-300 bg-teal-950'
-                    }`}>
-                      {sc.historicalDecision.trim()}
-                    </span>
+                  <div className="flex items-end justify-between gap-2 text-xs">
+                    <div className="min-w-0">
+                      <div className="font-medium text-[#D2D2D7] truncate">{sc.label}</div>
+                      <div className="text-[11px] text-[#86868B] mt-0.5">과거 판정: <span className="text-[#F4F8FB] font-medium">{sc.historicalDecision}</span></div>
+                    </div>
+                    <div className="text-right shrink-0">
+                      <div className="text-[10px] text-[#86868B]">유사도</div>
+                      <div className="font-mono text-base leading-none font-bold text-[#9FC6F4]">{sc.similarity}%</div>
+                    </div>
                   </div>
-                </div>
+                  <div className="mt-1.5 h-0.5 bg-[#161617] overflow-hidden rounded-full" aria-hidden="true">
+                    <div className="h-full bg-[#3397D4]" style={{ width: `${sc.similarity}%` }} />
+                  </div>
+                </button>
               ))}
             </div>
-          </div>
+          </section>
         </div>
 
         {/* RIGHT 35–40%: CLEAN INSPECTION RESULT PANEL (16PX+ TEXT & TOUCH BUTTONS) */}
@@ -936,7 +989,7 @@ export default function App() {
               <div className="bg-[#2B3A37] p-4 rounded border border-[#41626A]">
                 <span className="font-bold block mb-2 text-[#F4F8FB]">현재 RT 검사 ({selectedPorosity.label} 영역)</span>
                 <div className="h-48 bg-[#161617] rounded mb-3 flex items-center justify-center overflow-hidden border border-[#41626A]">
-                  <img src={uploadedImage || attachedRtImage} alt="Current RT" className="w-full h-full object-contain" />
+                  <img src={uploadedImage || CURRENT_RT_IMAGE} alt="현재 RT 검사 영상" className="w-full h-full object-contain" />
                 </div>
                 <div className="space-y-1">
                   <div>위치: <span className="font-semibold">{selectedPorosity.location}</span></div>
@@ -947,15 +1000,17 @@ export default function App() {
               {/* HISTORICAL MATCHED CASE */}
               <div className="bg-[#2B3A37] p-4 rounded border border-[#41626A]">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="font-bold text-[#F4F8FB]">유사 사례 ({comparisonCase.caseId})</span>
+                  <span className="font-bold text-[#F4F8FB]">{comparisonCase.label} ({comparisonCase.caseId})</span>
                   <span className="text-xs bg-[#161617] text-[#9FC6F4] px-2 py-0.5 rounded border border-[#41626A] font-mono">
-                    {comparisonCase.similarity}% AI 매칭
+                    유사도 {comparisonCase.similarity}%
                   </span>
                 </div>
                 <div className="h-48 bg-[#161617] rounded mb-3 flex items-center justify-center overflow-hidden border border-[#41626A]">
-                  <img src={attachedRtImage} alt="Historical Case" className="w-full h-full object-contain opacity-80" />
+                  <img src={comparisonCase.image} alt={`${comparisonCase.label} 과거 RT 영상`} className="w-full h-full object-contain" />
                 </div>
                 <div className="space-y-1 text-sm text-[#D2D2D7]">
+                  <div>사례 ID: <span className="font-mono text-[#F4F8FB]">{comparisonCase.caseId}</span></div>
+                  <div>결함 유형: <span className="font-medium text-[#F4F8FB]">{comparisonCase.porosityType}</span></div>
                   <div>적용 선박: <span className="font-medium text-[#F4F8FB]">{comparisonCase.vessel}</span></div>
                   <div>과거 판정: <span className="font-bold text-amber-300">{comparisonCase.historicalDecision}</span></div>
                   <div>조치 사항: <span className="text-[#F4F8FB]">{comparisonCase.actionTaken}</span></div>
