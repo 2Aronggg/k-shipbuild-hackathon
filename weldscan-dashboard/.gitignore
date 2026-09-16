@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 편집기
+.vscode/
+.idea/
+
+# 대용량 원천 데이터 (저장소에 넣지 않음)
+kr_reg_vectordb/
+02.라벨링데이터/
+*.pt

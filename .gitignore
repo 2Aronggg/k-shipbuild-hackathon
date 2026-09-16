@@ -1,3 +1,6 @@
 raw_download/
 weld_db/
 *.zip
+kr_reg_vectordb/raw/*.pdf
+__pycache__/
+.DS_Store
