@@ -1,0 +1,10 @@
+{
+  "description": "Enables users to quickly locate and manage code snippets across projects, streamlining development and boosting productivity for programmers.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
