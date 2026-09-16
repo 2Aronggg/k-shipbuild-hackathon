@@ -11,6 +11,7 @@ WeldScan AI — Streamlit 진입점
 2) 프로젝트 루트에서: streamlit run app.py
 """
 
+import base64
 from pathlib import Path
 from urllib.parse import urlencode
 
@@ -23,32 +24,34 @@ import streamlit.components.v1 as components
 # ══════════════════════════════════════════════════
 
 APP_DIR = Path(__file__).parent
+LOGIN_BG_PATH = APP_DIR.parent / "design" / "background.png"
+LOGIN_BG_DATA = base64.b64encode(LOGIN_BG_PATH.read_bytes()).decode("ascii")
 
 # 관리자 화면만 기존 HTML 사용
 ADMIN_DASHBOARD = APP_DIR / "weldscan_dashboard.html"
 
 # 네 Figma Make → React/Vite 작업자 화면
 # npm run dev 실행 시 기본 주소
-WORKER_UI_URL = "http://localhost:5173"
+WORKER_UI_URL = "http://localhost:8443"
 
 
 # 데모 계정
 # 실제 도입 시 LDAP / SSO 등으로 교체 가능
 ACCOUNTS = {
     "admin": {
-        "pw": "weldscan",
+      "pw": "1234",
         "name": "김성준",
         "team": "품질관리팀",
         "roles": {"admin", "senior", "worker"},
     },
-    "senior": {
-        "pw": "weldscan",
+    "inspector01": {
+      "pw": "1234",
         "name": "윤경석",
         "team": "비파괴검사팀",
         "roles": {"senior", "worker"},
     },
-    "worker": {
-        "pw": "weldscan",
+    "worker01": {
+      "pw": "1234",
         "name": "이수빈",
         "team": "비파괴검사팀",
         "roles": {"worker"},
@@ -57,18 +60,15 @@ ACCOUNTS = {
 
 
 ROLE_KO = {
-    "admin": "관리자",
-    "senior": "책임 검사원",
-    "worker": "검사자",
+    "worker": "작업자 (Worker)",
+    "admin": "관리자 (Admin)",
+    "senior": "검사자 (Inspector)", # 기존 '책임 검사원'을 이미지에 맞게 변경
 }
 
-ROLE_DESC = {
-    "admin": "판정 일관성 관제 — 검사자들이 규정대로 판정하고 있는지 채점",
-    "senior": "이관 건 최종 확정 — 검사자가 넘긴 애매한 건을 판단",
-    "worker": "RT 필름 판독 — AI가 찾은 결함을 확인하고 판정 기록",
-}
+# 표시 순서를 이미지와 동일하게 (작업자 -> 관리자 -> 검사자) 맞추려면 아래 순서를 변경하세요.
+ROLE_ORDER = ["worker", "admin", "senior"]
 
-ROLE_ORDER = ["admin", "senior", "worker"]
+
 
 
 # ══════════════════════════════════════════════════
@@ -77,7 +77,7 @@ ROLE_ORDER = ["admin", "senior", "worker"]
 
 st.set_page_config(
     page_title="WeldScan AI",
-    page_icon="🔶",
+    page_icon="⚓",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
@@ -92,7 +92,7 @@ st.markdown(
     <style>
 
       .stApp {
-        background:#EFEEEB;
+        background:#161617;
       }
 
       header[data-testid="stHeader"],
@@ -104,127 +104,6 @@ st.markdown(
       .block-container {
         padding:0 !important;
         max-width:none !important;
-      }
-
-
-      /* ──────────────────────────────
-         로그인 화면
-      ────────────────────────────── */
-
-      .login-hero {
-        max-width:420px;
-        margin:6vh auto 0;
-      }
-
-      .login-hero .mark {
-        width:52px;
-        height:52px;
-        border-radius:17px;
-
-        background:#FF5A1F;
-        color:#fff;
-
-        display:grid;
-        place-items:center;
-
-        font:700 22px/1 Inter, system-ui, sans-serif;
-        letter-spacing:-.02em;
-
-        margin-bottom:18px;
-      }
-
-      .login-hero h1 {
-        font:600 30px/1.2 Inter, "IBM Plex Sans KR", system-ui, sans-serif;
-        letter-spacing:-.03em;
-        color:#16161A;
-
-        margin:0 0 8px;
-      }
-
-      .login-hero p {
-        font:400 13.5px/1.65 "IBM Plex Sans KR", system-ui, sans-serif;
-        color:#5C5C63;
-
-        margin:0 0 22px;
-      }
-
-      .role-note {
-        font:400 12px/1.6 "IBM Plex Sans KR", system-ui, sans-serif;
-        color:#8B8B92;
-
-        margin:-6px 0 14px;
-      }
-
-      .hintbox {
-        margin-top:18px;
-        padding:12px 14px;
-
-        border-radius:12px;
-        border:1px solid #E7E4DF;
-        background:#F5F4F1;
-
-        font:400 11.5px/1.7 "IBM Plex Mono", monospace;
-        color:#5C5C63;
-      }
-
-      .hintbox b {
-        color:#16161A;
-      }
-
-
-      /* ──────────────────────────────
-         로그인 폼
-      ────────────────────────────── */
-
-      div[data-testid="stTextInput"] input {
-        border-radius:12px !important;
-        border:1px solid #E7E4DF !important;
-        background:#fff !important;
-
-        padding:11px 14px !important;
-        font-size:13.5px !important;
-      }
-
-      div[data-testid="stTextInput"] input:focus {
-        border-color:#FF5A1F !important;
-        box-shadow:none !important;
-      }
-
-      div[data-testid="stTextInput"] label,
-      div[data-testid="stRadio"] label {
-        font-size:12px !important;
-        color:#5C5C63 !important;
-        font-weight:500 !important;
-      }
-
-      div[data-testid="stForm"] {
-        border:0 !important;
-        padding:0 !important;
-      }
-
-      .stButton > button,
-      div[data-testid="stFormSubmitButton"] > button {
-        width:100%;
-
-        border-radius:99px;
-        border:1px solid #FF5A1F;
-
-        background:#FF5A1F;
-        color:#fff;
-
-        font-weight:600;
-        font-size:13.5px;
-
-        padding:11px 18px;
-
-        transition:.15s;
-      }
-
-      .stButton > button:hover,
-      div[data-testid="stFormSubmitButton"] > button:hover {
-        background:#EC4A11;
-        border-color:#EC4A11;
-        color:#fff;
       }
 
 
@@ -242,17 +121,17 @@ st.markdown(
         padding:10px 20px;
         margin:14px 14px 0;
 
-        border-radius:99px;
+        border-radius:10px;
 
-        background:#fff;
-        border:1px solid #E7E4DF;
+        background:#333336;
+        border:1px solid #41626A;
 
         font:400 12.5px/1.5 "IBM Plex Sans KR", system-ui, sans-serif;
-        color:#5C5C63;
+        color:#D2D2D7;
       }
 
       .sessionbar b {
-        color:#16161A;
+        color:#F4F8FB;
         font-weight:600;
       }
 
@@ -262,17 +141,335 @@ st.markdown(
         padding:5px 10px;
         border-radius:99px;
 
-        background:#FFF3ED;
-        color:#B83E10;
-        border:1px solid #FFD5C2;
+        background:#3397D4;
+        color:#fff;
+        border:1px solid #3397D4;
       }
 
       .sessionbar .sp {
         flex:1;
       }
 
+      /* ──────────────────────────────
+         WeldScan 로그인 셸 (좌 히어로 / 우 로그인 카드)
+      ────────────────────────────── */
+
+      .stApp:has(.login-scene) {
+        background:#061526;
+      }
+
+      .stApp:has(.login-scene) .block-container {
+        height:100vh;
+        padding:0 !important;
+        overflow:hidden;
+      }
+
+      .stApp:has(.login-scene) div[data-testid="stHorizontalBlock"] {
+        gap:0;
+        height:100vh;
+      }
+
+      .stApp:has(.login-scene) div[data-testid="column"] {
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        height:100vh;
+        overflow:hidden;
+      }
+
+      /* ── 좌측 히어로 (조선소 · 배 이미지) ── */
+
+      .login-scene {
+        height:100vh;
+        position:relative;
+        display:flex;
+        flex-direction:column;
+        justify-content:flex-end;
+        padding:clamp(24px,3vw,44px);
+        overflow:hidden;
+        background:
+          linear-gradient(0deg,rgba(4,10,20,.88) 0%,rgba(4,10,20,.15) 42%,rgba(4,10,20,.05) 60%),
+          url("data:image/png;base64,{LOGIN_BG_DATA}") center/cover no-repeat;
+      }
+
+      .login-scene::before {
+        content:"";
+        position:absolute;
+        inset:0;
+        background-image:
+          linear-gradient(rgba(50,214,255,.05) 1px,transparent 1px),
+          linear-gradient(90deg,rgba(50,214,255,.05) 1px,transparent 1px);
+        background-size:42px 42px;
+        mix-blend-mode:screen;
+        pointer-events:none;
+      }
+
+      .scene-badge {
+        position:absolute;
+        top:clamp(20px,2.6vw,32px);
+        right:clamp(24px,3vw,44px);
+        z-index:1;
+        text-align:right;
+        font:600 10px/1.6 "IBM Plex Mono",monospace;
+        letter-spacing:.14em;
+        color:rgba(245,249,252,.55);
+      }
+
+      .scene-feats {
+        position:relative;
+        z-index:1;
+        display:flex;
+        gap:clamp(18px,2.6vw,40px);
+        flex-wrap:wrap;
+        margin-top:clamp(20px,3vw,32px);
+      }
+
+      .scene-feat {display:flex;gap:10px;align-items:flex-start;max-width:200px}
+      .scene-feat .ic {
+        flex:none;width:34px;height:34px;border-radius:9px;
+        background:rgba(50,214,255,.1);border:1px solid rgba(50,214,255,.28);
+        display:grid;place-items:center;color:#32D6FF;
+      }
+      .scene-feat .ic svg {width:17px;height:17px}
+      .scene-feat b {display:block;font:600 13px/1.4 "IBM Plex Sans KR",Inter,sans-serif;color:#F5F9FC}
+      .scene-feat span {display:block;font:400 11.5px/1.5 "IBM Plex Sans KR",Inter,sans-serif;color:#9FB1C2;margin-top:2px}
+
+      .scene-foot {
+        position:relative;
+        z-index:1;
+        margin-top:clamp(18px,2.4vw,28px);
+        padding-top:14px;
+        border-top:1px solid rgba(159,177,194,.16);
+        font:500 10px/1 "IBM Plex Mono",monospace;
+        letter-spacing:.16em;
+        color:rgba(159,177,194,.7);
+        text-transform:uppercase;
+      }
+
+      /* ── 우측 로그인 패널 ── */
+
+      .stApp:has(.login-scene) div[data-testid="column"]:last-child {
+        background:#061526;
+        padding:clamp(20px,3vw,40px);
+      }
+
+      .stApp:has(.login-scene) div[data-testid="column"]:last-child > div {
+        width:min(100%,420px);
+        margin-inline:auto;
+      }
+
+      .st-key-login_card {
+        border:1px solid #31516F;
+        border-radius:18px;
+        background:rgba(10,31,52,.88);
+        padding:clamp(22px,2.6vw,30px) clamp(24px,2.8vw,32px);
+      }
+
+      .st-key-login_card div[data-testid="stVerticalBlock"] {
+        gap:0.5rem !important;
+      }
+
+      .login-hero {max-width:none;margin:0 0 20px}
+      .login-hero h1 {
+        font:700 27px/1.2 Inter,"IBM Plex Sans KR",sans-serif;
+        letter-spacing:-.02em;
+        margin:0 0 8px;
+        background:linear-gradient(90deg,#E6F4FF 0%,#64C7FF 55%,#22D3EE 100%);
+        -webkit-background-clip:text;
+        background-clip:text;
+        -webkit-text-fill-color:transparent;
+        color:#F5F9FC;
+      }
+      .login-hero p {font:400 13px/1.6 "IBM Plex Sans KR",Inter,sans-serif;color:#9FB1C2;margin:0}
+      .login-hero .sub2 {font-size:12px;color:#6F8498;margin-top:6px}
+
+      .field-label {
+        font:500 12px/1 "IBM Plex Sans KR",Inter,sans-serif;
+        color:#9FB1C2;
+        margin:16px 0 7px;
+      }
+      .field-label:first-of-type {margin-top:0}
+
+      div[data-testid="stTextInput"] {position:relative}
+
+      div[data-testid="stTextInput"] label,
+      div[data-testid="stWidgetLabel"] {
+        display:none !important;
+      }
+
+      div[data-testid="stTextInput"] div[data-baseweb="input"] {
+        border-radius:9px !important;
+        border:1px solid #31516F !important;
+        background:rgba(6,21,38,.6) !important;
+        overflow:hidden;
+      }
+
+      div[data-testid="stTextInput"] div[data-baseweb="input"]:focus-within {
+        border-color:#32D6FF !important;
+        box-shadow:0 0 0 3px rgba(50,214,255,.14) !important;
+      }
+
+      div[data-testid="stTextInput"] input {
+        background:transparent !important;
+        border:none !important;
+        color:#F5F9FC !important;
+        padding:12px 14px 12px 40px !important;
+        min-height:46px !important;
+        font-size:13.5px !important;
+      }
+
+      div[data-testid="stTextInput"] input::placeholder {color:#6F8498 !important}
+
+      /* 입력창 좌측 라인 아이콘 (사번/비밀번호) */
+      div[data-testid="stTextInput"]:has(input[aria-label="사번 / ID"])::before,
+      div[data-testid="stTextInput"]:has(input[aria-label="비밀번호"])::before {
+        content:"";
+        position:absolute;
+        left:13px;top:50%;
+        width:16px;height:16px;
+        transform:translateY(-50%);
+        z-index:2;
+        pointer-events:none;
+        background-repeat:no-repeat;background-position:center;background-size:contain;
+        opacity:.65;
+      }
+      div[data-testid="stTextInput"]:has(input[aria-label="사번 / ID"])::before {
+        background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%239FB1C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>');
+      }
+      div[data-testid="stTextInput"]:has(input[aria-label="비밀번호"])::before {
+        background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%239FB1C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>');
+      }
+
+      /* ── 하단 '사용할 화면' 라디오 버튼 커스텀 ── */
+
+      .st-key-login_card div[data-testid="stRadio"] div[data-baseweb="radio"] > div:first-child {
+        display:none !important;
+      }
+
+      .st-key-login_card div[data-testid="stRadio"] {
+        margin-top:6px;
+        margin-bottom:24px;
+      }
+
+      .st-key-login_card div[role="radiogroup"] {
+        display:flex;
+        gap:12px !important;
+        flex-direction:row;
+      }
+
+      .st-key-login_card div[role="radiogroup"] label {
+        flex:1 1 0;
+        background:rgba(6,21,38,.6) !important;
+        border:1px solid #31516F !important;
+        border-radius:9px !important;
+        padding:10px 20px !important;
+        color:#FFFFFF !important;
+        font:500 13px/1 "IBM Plex Sans KR",Inter,sans-serif !important;
+        cursor:pointer;
+        margin:0 !important;
+        transition:all .2s ease;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+      }
+
+      .st-key-login_card div[role="radiogroup"] label:hover {
+        border-color:rgba(50,214,255,.5) !important;
+        color:#F5F9FC !important;
+      }
+
+      .st-key-login_card div[role="radiogroup"] label:has(input:checked) {
+        background:rgba(50,214,255,.1) !important;
+        border-color:#32D6FF !important;
+        color:#FFFFFF !important;
+        box-shadow:0 0 0 1px rgba(50,214,255,.2) !important;
+      }
+
+      .st-key-login_card div[role="radiogroup"] label p,
+      .st-key-login_card div[role="radiogroup"] label span {
+        color:#FFFFFF !important;
+        font:inherit !important;
+        margin:0 !important;
+      }
+
+      .role-note {
+        font:500 12px/1 "IBM Plex Sans KR", Inter, sans-serif;
+        color:#9FB1C2;
+        margin:16px 0 7px;
+      }
+
+      /* ── 로그인 버튼 ── */
+
+      div[data-testid="stForm"] {border:0 !important;padding:0 !important;margin-top:18px}
+
+      .stButton > button,
+      div[data-testid="stFormSubmitButton"] > button {
+        width:100%;
+        min-height:50px;
+        border-radius:10px;
+        border:1px solid transparent;
+        background:linear-gradient(90deg,#2F9BFF,#32D6FF);
+        color:#06121F;
+        font-weight:700;
+        font-size:14.5px;
+        padding:12px 18px;
+        margin-top:18px;
+        transition:filter .15s;
+      }
+
+      .stButton > button:hover,
+      div[data-testid="stFormSubmitButton"] > button:hover {
+        filter:brightness(1.08);
+        background:linear-gradient(90deg,#2F9BFF,#32D6FF);
+        color:#06121F;
+      }
+
+      /* ── 샘플 계정 ── */
+
+      .hintbox {
+        margin-top:16px;
+        padding-top:14px;
+
+        border-top:1px solid #31516F;
+        background:transparent;
+        border-radius:0;
+
+        font:400 11.5px/1.7 "IBM Plex Sans KR", sans-serif;
+        color:#9FB1C2;
+      }
+
+      .hintbox .lbl {color:#6F8498;font-size:11.5px;margin-bottom:9px;display:block}
+
+      .hintbox .chips {display:flex;gap:6px;flex-wrap:wrap}
+
+      .hintbox .chip {
+        display:inline-flex;align-items:center;gap:5px;
+        padding:6px 10px;
+        border-radius:7px;
+        border:1px solid #31516F;
+        background:rgba(255,255,255,.02);
+        font-family:"IBM Plex Mono",monospace;
+        font-size:10.5px;
+        color:#9FB1C2;
+        white-space:nowrap;
+      }
+
+      .hintbox .chip b {color:#F5F9FC;font-weight:600;font-family:"IBM Plex Sans KR",sans-serif}
+
+      @keyframes shipDrift {from{transform:translate3d(-6px,2px,0)}to{transform:translate3d(8px,-3px,0)}}
+      @media (prefers-reduced-motion:reduce){* {animation:none !important}}
+
+      @media (max-width:900px){
+        .stApp:has(.login-scene) div[data-testid="stHorizontalBlock"]{display:block;height:auto}
+        .stApp:has(.login-scene) .block-container{height:auto;overflow:visible}
+        .stApp:has(.login-scene) div[data-testid="column"]{height:auto}
+        .login-scene{height:auto;min-height:38vh}
+        .scene-feats{display:none}
+        .stApp:has(.login-scene) div[data-testid="column"]:last-child{padding:28px 20px}
+      }
+
     </style>
-    """,
+    """.replace("{LOGIN_BG_DATA}", LOGIN_BG_DATA),
     unsafe_allow_html=True,
 )
 
@@ -289,73 +486,126 @@ st.session_state.setdefault("user", None)
 # ══════════════════════════════════════════════════
 
 def render_login() -> None:
+    left, right = st.columns([1.5, 1])
 
-    st.markdown(
-        """
-        <div class="login-hero">
+    with left:
+        st.markdown(
+            """
+            <section class="login-scene" aria-label="WeldScan 브랜드 소개">
+              <div class="scene-badge">MARITIME AI<br>FOR A SAFER TOMORROW</div>
 
-          <div class="mark">W</div>
+              <div class="scene-feats">
+                <div class="scene-feat">
+                  <div class="ic">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="9"/></svg>
+                  </div>
+                  <div><b>AI 기반 용접부 판정 보조</b><span>더 정확하고, 더 빠르게</span></div>
+                </div>
+                <div class="scene-feat">
+                  <div class="ic">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
+                  </div>
+                  <div><b>안전한 조선 산업</b><span>사람과 기술의 안전을 생각합니다</span></div>
+                </div>
+                <div class="scene-feat">
+                  <div class="ic">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+                  </div>
+                  <div><b>데이터로 만드는 더 나은 미래</b><span>지속 가능한 미래를 위해</span></div>
+                </div>
+              </div>
 
-          <h1>WeldScan AI</h1>
+              <div class="scene-foot">SMART INSPECTION · SAFER SHIPS · A BRIGHTER TOMORROW</div>
+            </section>
+            """,
+            unsafe_allow_html=True,
+        )
 
-          <p>
-            용접부 비파괴검사 판정 보조 시스템입니다.<br>
-            계정으로 로그인한 뒤 사용할 화면을 선택해 주세요.
-          </p>
+    with right:
+        card = st.container(key="login_card")
 
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-
-    left, mid, right = st.columns([1, 1.25, 1])
-
-
-    with mid:
-
-        with st.form("login", clear_on_submit=False):
-
-            user_id = st.text_input(
-                "사번 / 아이디",
-                value="admin",
-                autocomplete="username",
-            )
-
-            password = st.text_input(
-                "비밀번호",
-                type="password",
-                value="",
-                autocomplete="current-password",
-            )
-
+        with card:
 
             st.markdown(
-                '<div class="role-note">사용할 화면</div>',
+                """
+                <div class="login-hero">
+                  <h1>WeldScan AI</h1>
+                  <p>용접부 비파괴검사 판정 보조 AI 시스템</p>
+                  <div class="sub2">AI가 분석하는 정밀한 용접 검사, 더 안전한 조선 산업의 시작입니다.</div>
+                </div>
+                """,
                 unsafe_allow_html=True,
             )
 
+            with st.form("login", clear_on_submit=False):
 
-            role_label = st.radio(
-                "역할",
+                st.markdown('<div class="field-label">사번 / ID</div>', unsafe_allow_html=True)
+                user_id = st.text_input(
+                    "사번 / ID",
+                    value="",
+                    placeholder="사번 또는 아이디를 입력하세요",
+                    autocomplete="username",
+                    label_visibility="collapsed",
+                )
 
-                options=[
-                    ROLE_KO[r]
-                    for r in ROLE_ORDER
-                ],
+                st.markdown('<div class="field-label">비밀번호</div>', unsafe_allow_html=True)
+                password = st.text_input(
+                    "비밀번호",
+                    type="password",
+                    value="",
+                    placeholder="비밀번호를 입력하세요",
+                    autocomplete="current-password",
+                    label_visibility="collapsed",
+                )
 
-                captions=[
-                    ROLE_DESC[r]
-                    for r in ROLE_ORDER
-                ],
 
-                label_visibility="collapsed",
-                horizontal=False,
+                st.markdown(
+                    '<div class="role-note">사용할 화면</div>',
+                    unsafe_allow_html=True,
+                )
+
+
+                role_label = st.radio(
+                    "역할",
+
+                    options=[
+                        ROLE_KO[r]
+                        for r in ROLE_ORDER
+                    ],
+
+                    label_visibility="collapsed",
+                    horizontal=True,
+                )
+
+
+                submitted = st.form_submit_button("로그인 →")
+
+
+
+
+
+
+
+
+
+
+            # ──────────────────────────────
+            # 데모 계정 표시
+            # ──────────────────────────────
+
+            st.markdown(
+                """
+                <div class="hintbox">
+                  <span class="lbl">샘플 계정으로 체험해 보세요.</span>
+                  <div class="chips">
+                    <span class="chip"><b>작업자</b> worker01 / 1234</span>
+                    <span class="chip"><b>관리자</b> admin / 1234</span>
+                    <span class="chip"><b>검사자</b> inspector01 / 1234</span>
+                  </div>
+                </div>
+                """,
+                unsafe_allow_html=True,
             )
-
-
-            submitted = st.form_submit_button("로그인")
-
 
         # ──────────────────────────────
         # 로그인 처리
@@ -398,29 +648,6 @@ def render_login() -> None:
                 }
 
                 st.rerun()
-
-
-        # 데모 계정 표시
-
-        st.markdown(
-            """
-            <div class="hintbox">
-
-              데모 계정<br>
-
-              <b>admin</b> / weldscan
-              &nbsp;— 세 화면 모두 가능<br>
-
-              <b>senior</b> / weldscan
-              &nbsp;— 책임 검사원 · 검사자<br>
-
-              <b>worker</b> / weldscan
-              &nbsp;— 검사자만
-
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
 
 
 # ══════════════════════════════════════════════════
