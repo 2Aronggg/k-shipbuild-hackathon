@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WeldScan · RT 작업자 화면</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  color-scheme: light;
+  --ground:#EFEEEB; --surface:#FFFFFF; --surface-2:#F5F4F1; --surface-3:#EAE8E4;
+  --line:#E7E4DF; --line-soft:#F1EFEB;
+  --ink:#16161A; --ink-2:#5C5C63; --ink-3:#8B8B92; --ink-4:#AEAEB4;
+  --glow:#FF5A1F; --glow-dim:#FFD5C2; --dark:#191919;
+  --good:#12A150; --warn:#E08A00; --crit:#E0342B;
+  --sh:0 1px 2px rgba(20,20,20,.05), 0 10px 26px -18px rgba(20,20,20,.22);
+  --r:16px;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:"Inter","IBM Plex Sans KR","Apple SD Gothic Neo",system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);line-height:1.55;
+  -webkit-font-smoothing:antialiased}
+.app{display:flex;gap:14px;padding:14px;min-height:100vh;align-items:flex-start}
+.rail{position:sticky;top:14px;flex:none;width:58px;background:var(--surface);border:1px solid var(--line);
+  border-radius:22px;box-shadow:var(--sh);padding:12px 0;display:flex;flex-direction:column;align-items:center;gap:6px}
+.rail .mark{width:34px;height:34px;border-radius:11px;background:var(--glow);display:grid;place-items:center;
+  color:#fff;font-weight:700;font-size:14px;margin-bottom:8px}
+.rnav{width:38px;height:38px;border-radius:12px;border:0;background:transparent;cursor:pointer;
+  display:grid;place-items:center;color:var(--ink-3);transition:.15s}
+.rnav:hover{background:var(--surface-2);color:var(--ink)}
+.rnav[aria-current="true"]{background:var(--dark);color:#fff}
+.rnav svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.rail .sp{flex:1}
+.stage{flex:1;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:26px;
+  box-shadow:var(--sh);padding:0 0 26px}
+.topbar{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:14px clamp(16px,2.4vw,30px);
+  border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:9px}
+.brand i{width:30px;height:30px;border-radius:10px;background:var(--glow);display:grid;place-items:center;
+  color:#fff;font-style:normal;font-weight:700;font-size:13px}
+.brand span{font-weight:600;font-size:15.5px;letter-spacing:-.01em}
+.tabs{display:flex;gap:4px;background:var(--surface-2);border-radius:99px;padding:4px}
+.tab{appearance:none;background:transparent;border:0;border-radius:99px;padding:8px 15px;cursor:pointer;
+  color:var(--ink-2);font-family:var(--sans);font-size:13.5px;font-weight:500;transition:.15s}
+.tab[aria-selected="true"]{background:var(--dark);color:#fff}
+.tab:focus-visible{outline:2px solid var(--glow);outline-offset:2px}
+.me{margin-left:auto;display:flex;align-items:center;gap:9px;border:1px solid var(--line);
+  border-radius:99px;padding:5px 13px 5px 5px;background:var(--surface-2)}
+.me .av{width:30px;height:30px;border-radius:50%;background:var(--dark);color:#fff;display:grid;
+  place-items:center;font-size:12px;font-weight:600}
+.me .who2{display:flex;flex-direction:column;line-height:1.25}
+.me .who2 b{font-size:12.5px;font-weight:600}
+.me .who2 span{font-size:10.5px;color:var(--ink-3)}
+.wrap{padding-inline:clamp(16px,2.4vw,30px)}
+
+h1{font-size:clamp(23px,2.7vw,30px);font-weight:600;letter-spacing:-.025em;margin:0}
+h3{font-size:14px;font-weight:600;margin:0;letter-spacing:-.01em}
+.eyebrow{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--glow)}
+.note{color:var(--ink-3);font-size:12px;line-height:1.6;margin:0}
+code{font-family:var(--mono);font-size:12px;background:var(--surface-2);border:1px solid var(--line);
+  border-radius:5px;padding:1px 5px;color:var(--ink-2)}
+
+header{padding-block:24px 6px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.mchip{font-size:11.5px;color:var(--ink-2);border:1px solid var(--line);background:var(--surface-2);
+  border-radius:99px;padding:6px 13px;white-space:nowrap}
+.mchip b{color:var(--ink);font-weight:600;font-family:var(--mono)}
+.mchip.key{border-color:var(--glow-dim);background:#FFF3ED;color:#B83E10}
+.mchip.key b{color:#B83E10}
+
+.grid{display:grid;grid-template-columns:1.55fr 1fr;gap:14px;margin-top:18px;align-items:start}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh);
+  padding:18px 20px 18px;min-width:0}
+.card-hd{display:flex;gap:12px;align-items:baseline;justify-content:space-between;margin-bottom:10px}
+.why{color:var(--ink-3);font-size:12px;margin:0}
+
+/* 필름 뷰어 */
+.viewer{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#111}
+.vtools{display:flex;gap:6px;align-items:center;padding:9px 12px;background:var(--surface-2);
+  border-bottom:1px solid var(--line)}
+.vtools .seg{display:flex;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:99px;padding:3px}
+.vtools .seg button{border:0;background:transparent;border-radius:99px;padding:5px 12px;font-size:12px;
+  font-family:var(--sans);color:var(--ink-2);cursor:pointer}
+.vtools .seg button[aria-pressed="true"]{background:var(--dark);color:#fff}
+.vtools .hint{margin-left:auto;font-size:11px;color:var(--ink-3)}
+.film{display:block;width:100%;height:auto}
+.ruler{display:flex;justify-content:space-between;padding:7px 10px;background:var(--surface-2);
+  border-top:1px solid var(--line);font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+
+/* 영역 패널 */
+.prog{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--ink-2)}
+.prog b{font-family:var(--mono);color:var(--ink)}
+.ptrack{height:8px;background:var(--surface-3);border-radius:99px;overflow:hidden;margin:8px 0 14px}
+.pfill{height:100%;background:var(--glow);border-radius:99px;transition:width .2s}
+.ptabs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.ptab{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 6px;
+  cursor:pointer;font-family:var(--sans);font-size:13px;font-weight:600;color:var(--ink-2);transition:.15s;
+  display:flex;flex-direction:column;align-items:center;gap:3px}
+.ptab small{font-family:var(--mono);font-size:9.5px;font-weight:500;color:var(--ink-4)}
+.ptab[aria-pressed="true"]{background:var(--dark);border-color:var(--dark);color:#fff}
+.ptab[aria-pressed="true"] small{color:rgba(255,255,255,.7)}
+.ptab.done{border-color:#CBEBD8;background:#F0FAF4;color:#0E7C3F}
+.ptab.done small{color:#2E9B63}
+.ptab:focus-visible{outline:2px solid var(--glow);outline-offset:2px}
+
+.risk{margin-top:14px;border-radius:12px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start}
+.risk.hi{background:#FFF1EE;border:1px solid #FBD5CF;color:#A32418}
+.risk.mid{background:#FFF9EE;border:1px solid #F4E2C0;color:#7A5714}
+.risk.lo{background:#F0FAF4;border:1px solid #CBEBD8;color:#0E7C3F}
+.risk b{display:block;font-size:13px;font-weight:600}
+.risk span{font-size:11.5px;opacity:.85}
+
+.kv{margin-top:12px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.kv div{display:flex;justify-content:space-between;gap:12px;padding:10px 13px;font-size:12.5px;
+  border-bottom:1px solid var(--line-soft);color:var(--ink-2)}
+.kv div:last-child{border-bottom:0}
+.kv b{font-family:var(--mono);color:var(--ink);font-weight:600;text-align:right}
+
+.judge{margin-top:16px;display:flex;flex-direction:column;gap:7px}
+.jb{display:flex;align-items:center;gap:10px;border:1px solid var(--line);background:var(--surface);
+  border-radius:12px;padding:11px 14px;cursor:pointer;font-family:var(--sans);font-size:13px;
+  color:var(--ink);text-align:left;transition:.15s;width:100%}
+.jb em{margin-left:auto;font-style:normal;font-size:11px;color:var(--ink-3)}
+.jb i{font-style:normal;font-size:14px;width:18px;text-align:center}
+.jb:hover{border-color:var(--ink-4)}
+.jb[aria-pressed="true"]{border-width:2px;padding:10px 13px}
+.jb.ok[aria-pressed="true"]{border-color:var(--good);background:#F0FAF4}
+.jb.no[aria-pressed="true"]{border-color:var(--crit);background:#FFF1EE}
+.jb.re[aria-pressed="true"]{border-color:var(--warn);background:#FFF9EE}
+.jb:focus-visible{outline:2px solid var(--glow);outline-offset:2px}
+
+.sum{margin-top:16px;border-radius:12px;border:1px solid var(--line);background:var(--surface-2);padding:13px 15px}
+.sum .h{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--glow);margin-bottom:7px}
+.sum p{margin:0;font-size:12.5px;color:var(--ink-2);line-height:1.7}
+.sum b{color:var(--ink);font-weight:600}
+.sum .cite{font-family:var(--mono);font-size:11px;color:var(--ink-3);margin-top:7px;display:block}
+.rev{margin-top:11px;display:flex;flex-wrap:wrap;gap:6px}
+.rev button{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:5px 12px;
+  font-size:11.5px;font-family:var(--sans);color:var(--ink-2);cursor:pointer}
+.rev button[aria-pressed="true"]{background:var(--dark);border-color:var(--dark);color:#fff}
+.rev button:focus-visible{outline:2px solid var(--glow);outline-offset:2px}
+
+.acts{display:flex;gap:9px;margin-top:18px}
+.btn{flex:1;border-radius:99px;padding:13px 18px;font-family:var(--sans);font-size:13.5px;font-weight:600;
+  cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink);transition:.15s}
+.btn:hover{border-color:var(--ink-4)}
+.btn.primary{background:var(--glow);border-color:var(--glow);color:#fff}
+.btn.primary:hover{background:#EC4A11;border-color:#EC4A11}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn:focus-visible{outline:2px solid var(--dark);outline-offset:2px}
+
+/* 이관 대기 목록 (책임 검사원 전용) */
+.inbox{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh);
+  padding:18px 20px 16px;margin-top:18px}
+.ib-hd{display:flex;align-items:baseline;gap:10px;margin-bottom:12px}
+.ib-hd h3{margin:0}
+.ib-hd .n{font-family:var(--mono);font-size:11.5px;color:var(--glow);font-weight:500}
+.ib-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:9px}
+.ib{display:flex;flex-direction:column;gap:5px;text-align:left;cursor:pointer;
+  border:1px solid var(--line);background:var(--surface-2);border-radius:12px;padding:12px 14px;
+  font-family:var(--sans);transition:.15s}
+.ib:hover{border-color:var(--ink-4)}
+.ib[aria-pressed="true"]{border-color:var(--glow);border-width:2px;padding:11px 13px;background:#FFF6F2}
+.ib:focus-visible{outline:2px solid var(--glow);outline-offset:2px}
+.ib .r1{display:flex;align-items:center;gap:7px}
+.ib .id{font-family:var(--mono);font-size:11.5px;font-weight:600;color:var(--ink)}
+.ib .rs{font-size:10.5px;padding:2px 8px;border-radius:99px;background:#FFF0ED;color:#C02B22;border:1px solid #FBD5CF}
+.ib .r2{font-size:12px;color:var(--ink-2)}
+.ib .r3{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--ink-3)}
+.ib .wd{color:var(--serious);font-weight:600}
+.ib.done{opacity:.5}
+
+.out{margin-top:14px}
+.out pre{margin:0;background:var(--dark);color:#E9E8E4;border-radius:12px;padding:15px 17px;
+  font-family:var(--mono);font-size:11.5px;line-height:1.75;overflow-x:auto}
+.out pre b{color:#FFB18C;font-weight:500}
+.ph{margin-top:16px;border:1px dashed var(--line);border-radius:12px;padding:14px 16px;
+  font-size:12px;color:var(--ink-3);line-height:1.7;background:var(--surface-2)}
+.ph b{color:var(--ink-2);font-weight:600}
+@media (max-width:1080px){ .grid{grid-template-columns:1fr} }
+@media (max-width:760px){
+  .app{padding:8px;gap:8px} .rail{display:none} .stage{border-radius:20px}
+  .brand span{display:none} .me .who2{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <aside class="rail">
+    <div class="mark">W</div>
+    <button class="rnav" aria-current="true" title="판독" aria-label="판독"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="9.5" cy="11" r="2"/><path d="M3 17l5-4 3.5 3 3-2.5L21 17"/></svg></button>
+    <button class="rnav" title="대기 목록" aria-label="대기 목록"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg></button>
+    <button class="rnav" title="검사 기준" aria-label="검사 기준"><svg viewBox="0 0 24 24"><path d="M6.5 3.5h11a1.5 1.5 0 0 1 1.5 1.5v14a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 19V5a1.5 1.5 0 0 1 1.5-1.5z"/><path d="M8.5 8h7M8.5 12h7M8.5 16h4"/></svg></button>
+    <div class="sp"></div>
+    <button class="rnav" title="도움말" aria-label="도움말"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M12 11.2v5M12 7.9h.01"/></svg></button>
+  </aside>
+
+  <main class="stage">
+    <div class="topbar">
+      <div class="brand"><i>W</i><span>WeldScan</span></div>
+      <nav class="tabs" role="tablist" aria-label="작업 화면">
+        <button class="tab" role="tab" aria-selected="true">판독</button>
+        <button class="tab" role="tab" aria-selected="false">대기 목록</button>
+        <button class="tab" role="tab" aria-selected="false">검사 기준</button>
+      </nav>
+      <div class="me"><div class="av" id="av"></div>
+        <div class="who2"><b id="me-role"></b><span id="me-sub"></span></div></div>
+    </div>
+
+    <div class="wrap">
+      <header>
+        <p class="eyebrow" id="eyebrow"></p>
+        <h1 id="title"></h1>
+        <div class="meta" id="meta"></div>
+      </header>
+
+      <div id="inbox"></div>
+
+      <div class="grid">
+        <!-- ── 필름 뷰어 -->
+        <div class="card">
+          <div class="vtools">
+            <div class="seg">
+              <button aria-pressed="true" id="ov-on">AI 오버레이</button>
+              <button aria-pressed="false" id="ov-off">원본 필름</button>
+            </div>
+            <span class="hint">결함 윤곽선(폴리곤)으로 표시 — 긴지름을 그대로 측정</span>
+          </div>
+          <div class="viewer">
+            <svg class="film" viewBox="0 0 800 420" role="img" aria-label="RT 필름 판독 화면 예시">
+              <defs>
+                <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3"/>
+                  <feColorMatrix type="saturate" values="0"/></filter>
+                <linearGradient id="bead" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#4a4a4a"/><stop offset="45%" stop-color="#8e8e8e"/>
+                  <stop offset="100%" stop-color="#3d3d3d"/></linearGradient>
+              </defs>
+              <rect width="800" height="420" fill="#2a2a2a"/>
+              <rect width="800" height="420" filter="url(#grain)" opacity=".28"/>
+              <rect x="0" y="118" width="800" height="86" fill="url(#bead)" opacity=".85"/>
+              <rect x="0" y="118" width="800" height="86" filter="url(#grain)" opacity=".2"/>
+              <circle cx="262" cy="168" r="14" fill="#161616" opacity=".82"/>
+              <ellipse cx="398" cy="160" rx="9" ry="7" fill="#1b1b1b" opacity=".75"/>
+              <circle cx="505" cy="176" r="6" fill="#1e1e1e" opacity=".7"/>
+              <g id="ovl"></g>
+              <text x="770" y="360" font-family="Inter,sans-serif" font-size="74" font-weight="700"
+                fill="#f2f2f2" opacity=".9" text-anchor="end">17</text>
+            </svg>
+          </div>
+          <div class="ruler"><span>500 mm</span><span>600 mm</span><span>700 mm</span><span>800 mm</span></div>
+          <p class="note" style="margin-top:11px">필름은 화면 구조 확인용 예시 이미지임. 실제 판독에서는 업로드한 RT 스캔본이 이 자리에 들어감.</p>
+        </div>
+
+        <!-- ── 검토 패널 -->
+        <div class="card">
+          <div class="prog"><span>기공 영역 검토 진행률</span>
+            <span><b id="done">0</b> / <b id="tot">3</b> 영역 완료 (<b id="pct">0%</b>)</span></div>
+          <div class="ptrack"><div class="pfill" id="pfill" style="width:0%"></div></div>
+
+          <div class="ptabs" id="ptabs"></div>
+
+          <div class="risk" id="risk"></div>
+          <div class="kv" id="kv"></div>
+
+          <div class="judge" id="judge">
+            <button class="jb ok" data-rev="0" aria-pressed="false"><i>✓</i>기공 검출 확인<em>AI 판정 동의</em></button>
+            <button class="jb no" data-rev="1" aria-pressed="false"><i>✕</i>검출 오류 (오진)<em>기공 아님 / 필름 노이즈</em></button>
+            <button class="jb re" data-rev="2" aria-pressed="false"><i>△</i>재검사 필요<em>초음파(UT) 또는 재촬영</em></button>
+          </div>
+
+          <div class="sum">
+            <div class="h">AI 검사 요약</div>
+            <p id="sumtext"></p>
+            <span class="cite">근거 · KR 선급 및 강선규칙 제2편 적용지침 부록 2-7 표15 · KR 2편 2장 402.</span>
+            <div class="rev" id="rev">
+              <button data-r="accept" aria-pressed="true">그대로 승인</button>
+              <button data-r="edit_text" aria-pressed="false">문구만 수정</button>
+              <button data-r="edit_cite" aria-pressed="false">근거 조항 교체</button>
+              <button data-r="edit_grade" aria-pressed="false">등급 수정</button>
+              <button data-r="reject" aria-pressed="false">전체 재작성</button>
+            </div>
+          </div>
+
+          <div class="acts">
+            <button class="btn" id="esc">책임 검사원 이관</button>
+            <button class="btn primary" id="save" disabled>검사 최종 확인 저장</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="out">
+        <div class="card">
+          <div class="card-hd"><div><h3>저장 시 관리자 대시보드로 넘어가는 한 줄</h3>
+            <p class="why">아래 형태로 판정 이력 1건이 기록됨. 관리자 화면의 규정 일치율·마진·등급이 전부 이 값에서 계산됨.</p></div></div>
+          <pre id="payload"></pre>
+          <div class="ph"><b>이 화면은 구조 확인용 자리표시자임.</b> 팀에서 Figma Make로 만든 실제 작업자 화면이 완성되면 이 파일(<code>worker_dashboard.html</code>)만 교체하면 됨.
+          관리자 화면과의 계약은 위 JSON 한 줄이고, <code>t</code>(모재두께)·<code>maxd</code>(긴지름)·<code>regions</code>·<code>report</code> 네 개가 필수 항목임.</div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+/* 역할 — Streamlit 이 window.WS_ROLE 을 주입함. 파일을 직접 열면 ?role=senior 로도 볼 수 있음. */
+const ROLE = window.WS_ROLE || new URLSearchParams(location.search).get('role') || 'worker';
+const SENIOR = ROLE === 'senior';
+
+/* 검사 건. 검사자는 배정된 1건만, 책임 검사원은 이관된 3건을 골라 봄. */
+const CASES = [
+  {id:'RT-2026-0915-1447', ship:'H-3419 (174k LNG)', joint:'Block 204 / Joint #W-18B',
+   part:'LNG 탱크 멤브레인', t:11.9, why:'판정 불일치', wait:0, from:'이수빈 · 중급',
+   regions:[
+     {id:'P1', risk:'hi',  pos:'577 mm 위치 (루트 용접부)', d:3.88, n:1, cl:'단일 주요 기공 (규격 초과)', conf:0.91, x:34.2, y:48},
+     {id:'P2', risk:'mid', pos:'612 mm 위치 (비드 중앙)',   d:2.46, n:1, cl:'산재 기공',                  conf:0.63, x:49.6, y:44},
+     {id:'P3', risk:'lo',  pos:'658 mm 위치 (비드 하단)',   d:1.42, n:1, cl:'산재 기공',                  conf:0.38, x:63.1, y:51}]},
+  {id:'RT-2026-0915-1439', ship:'H-3402 (13k TEU)', joint:'Block 118 / Joint #W-07C',
+   part:'배관 원주 용접부', t:7.5, why:'불합격·중대 결함', wait:1, from:'정하윤 · 신입',
+   regions:[
+     {id:'P1', risk:'hi',  pos:'412 mm 위치 (원주 이음)',   d:5.24, n:1, cl:'단일 주요 기공 (규격 초과)', conf:0.94, x:28.5, y:52},
+     {id:'P2', risk:'hi',  pos:'437 mm 위치 (원주 이음)',   d:4.11, n:1, cl:'인접 기공 (2.5d 미만)',     conf:0.87, x:41.0, y:47},
+     {id:'P3', risk:'mid', pos:'465 mm 위치 (비드 상단)',   d:2.90, n:1, cl:'산재 기공',                  conf:0.71, x:55.3, y:43}]},
+  {id:'RT-2026-0914-1402', ship:'H-3419 (174k LNG)', joint:'Block 204 / Joint #W-21A',
+   part:'외판 맞대기', t:24.8, why:'회색지대', wait:2, from:'박서진 · 중급',
+   regions:[
+     {id:'P1', risk:'mid', pos:'703 mm 위치 (비드 중앙)',   d:4.62, n:1, cl:'단일 주요 기공',             conf:0.68, x:38.9, y:49},
+     {id:'P2', risk:'lo',  pos:'741 mm 위치 (비드 하단)',   d:2.05, n:1, cl:'산재 기공',                  conf:0.44, x:57.2, y:53}]},
+];
+
+const REVKO  = ['검출 확인','검출 오류 (오진)','재검사 필요'];
+const RISKKO = {hi:'고위험', mid:'주의', lo:'양호'};
+let ci = 0, sel = 0, judged = [], report = 'accept';
+const doneCases = new Set();
+
+const cur  = () => CASES[ci];
+const REG  = () => cur().regions;
+
+/* 표14 결함점수 · 표15 두께별 상한 — 관리자 화면과 같은 규정 계산 */
+const score14 = d => d<=1?1:d<=2?2:d<=3?3:d<=4?6:d<=6?10:d<=8?15:25;
+const lim15 = t => t<=10?[4.0,6]:t<=25?[5.0,12]:t<=50?[t/5,24]:[10.0,30];
+
+function ruleCalc(){
+  const t = cur().t, ig = t<=25?0.5:0.7;
+  const ds = REG().map(r=>r.d).filter(d=>d>ig);
+  const L = lim15(t), sc = ds.reduce((a,d)=>a+score14(d),0), mx = Math.max(...ds);
+  const margin = Math.max(sc/L[1], mx/L[0]);
+  return {sc, mx, L, margin, grade: margin<=0.5?1:margin<=1.0?2:margin<=2.0?3:4};
+}
+
+/* ── 상단 */
+function renderChrome(){
+  document.getElementById('av').textContent      = SENIOR ? '책' : '검';
+  document.getElementById('me-role').textContent = SENIOR ? '책임 검사원' : '검사자';
+  document.getElementById('me-sub').textContent  = SENIOR ? '비파괴검사 Level-III' : '비파괴검사 Level-II · 2년차';
+  document.getElementById('eyebrow').textContent = SENIOR
+    ? 'WeldScan AI · RT 방사선투과검사 · 이관 건 최종 확정'
+    : 'WeldScan AI · RT 방사선투과검사 · 판독';
+  document.getElementById('title').textContent = SENIOR ? '이관 건 최종 확정' : 'RT 필름 판독';
+  document.getElementById('save').textContent = SENIOR ? '최종 확정' : '검사 최종 확인 저장';
+  document.getElementById('esc').textContent  = SENIOR ? '검사자에게 반려' : '책임 검사원 이관';
+}
+function renderMeta(){
+  const c = cur();
+  document.getElementById('meta').innerHTML =
+    `<span class="mchip">선박 <b>${c.ship.split(' ')[0]}</b> ${c.ship.split(' ').slice(1).join(' ')}</span>
+     <span class="mchip">검사구역 <b>${c.joint}</b></span>
+     <span class="mchip key">모재두께 <b>${c.t} mm</b></span>
+     <span class="mchip">검사 ID <b>${c.id}</b></span>
+     <span class="mchip">필름 배율 <b>0.10 mm/px</b></span>` +
+    (SENIOR ? `<span class="mchip">이관 <b>${c.from}</b></span>` : '');
+}
+
+/* ── 이관 대기 목록 (책임 검사원 전용) */
+function renderInbox(){
+  const host = document.getElementById('inbox');
+  if(!SENIOR){ host.innerHTML = ''; return; }
+  const left = CASES.filter(c=>!doneCases.has(c.id)).length;
+  host.innerHTML = `<div class="inbox">
+    <div class="ib-hd"><h3>이관 대기</h3><span class="n">${left}건</span>
+      <p class="why" style="margin-left:auto">검사자가 판단을 넘긴 건. 선택하면 아래에서 바로 판독됨.</p></div>
+    <div class="ib-list">${CASES.map((c,i)=>{
+      const done = doneCases.has(c.id);
+      return `<button class="ib${done?' done':''}" data-i="${i}" aria-pressed="${i===ci}">
+        <span class="r1"><span class="id">${c.id}</span><span class="rs">${done?'확정 완료':c.why}</span></span>
+        <span class="r2">${c.part} · t=${c.t}mm · 기공 ${c.regions.length}개</span>
+        <span class="r3"><span>${c.from}</span>
+          <span class="${c.wait>=2?'wd':''}">${c.wait===0?'오늘 이관':c.wait+'일 대기'}</span></span></button>`;
+    }).join('')}</div></div>`;
+  host.querySelectorAll('.ib').forEach(b=>b.onclick = ()=>{
+    ci = +b.dataset.i; sel = 0; judged = REG().map(()=>null); report = 'accept';
+    document.querySelectorAll('#rev button').forEach(x=>
+      x.setAttribute('aria-pressed', String(x.dataset.r==='accept')));
+    document.getElementById('save').disabled = true;
+    renderChrome(); renderAll(); window.scrollTo({top:0, behavior:'smooth'});
+  });
+}
+
+/* ── 필름 마커 */
+function renderMarks(){
+  const COL = {hi:'#FF5A1F', mid:'#E08A00', lo:'#12A150'};
+  document.getElementById('ovl').innerHTML = REG().map((r,i)=>{
+    const cx = 80 + r.x*7.2, cy = 110 + r.y*1.1, rad = 7 + r.d*2.2, c = COL[r.risk];
+    return `<ellipse cx="${cx.toFixed(0)}" cy="${cy.toFixed(0)}" rx="${rad.toFixed(0)}" ry="${(rad*0.82).toFixed(0)}"
+        fill="${c}33" stroke="${c}" stroke-width="2.2"/>
+      <rect x="${(cx-17).toFixed(0)}" y="${(cy-rad-26).toFixed(0)}" width="34" height="19" rx="5" fill="${c}"/>
+      <text x="${cx.toFixed(0)}" y="${(cy-rad-12).toFixed(0)}" font-family="Inter,sans-serif" font-size="12"
+        font-weight="700" fill="#fff" text-anchor="middle">${r.id}</text>`;
+  }).join('');
+}
+
+/* ── 영역 패널 */
+function renderTabs(){
+  document.getElementById('ptabs').style.gridTemplateColumns = `repeat(${REG().length},1fr)`;
+  document.getElementById('ptabs').innerHTML = REG().map((r,i)=>{
+    const j = judged[i];
+    return `<button class="ptab${j!=null?' done':''}" aria-pressed="${i===sel}" data-i="${i}">
+      ${r.id}<small>${j==null?'미검토':REVKO[j]}</small></button>`;
+  }).join('');
+  document.querySelectorAll('.ptab').forEach(b=>b.onclick = ()=>{ sel = +b.dataset.i; renderAll(); });
+}
+function renderPanel(){
+  const r = REG()[sel];
+  document.getElementById('risk').className = 'risk ' + r.risk;
+  document.getElementById('risk').innerHTML =
+    `<div><b>${r.id} — ${RISKKO[r.risk]}</b><span>${r.pos}</span></div>`;
+  document.getElementById('kv').innerHTML = `
+    <div><span>기공 크기 / 긴지름</span><b>${r.d.toFixed(2)} mm</b></div>
+    <div><span>검출 기공 개수</span><b>${r.n} 개</b></div>
+    <div><span>군집 상태</span><b>${r.cl}</b></div>
+    <div><span>AI 탐지 신뢰도</span><b>${r.conf.toFixed(2)}</b></div>
+    <div><span>마커 좌표</span><b>X ${r.x} % · Y ${r.y} %</b></div>`;
+  document.querySelectorAll('.jb').forEach(b=>
+    b.setAttribute('aria-pressed', String(judged[sel] === +b.dataset.rev)));
+}
+function renderSummary(){
+  const c = ruleCalc(), big = REG().reduce((a,b)=>a.d>b.d?a:b);
+  document.getElementById('sumtext').innerHTML =
+    `검출된 <b>${REG().length}개</b> 기공 중 <b>${big.id} 영역(긴지름 ${big.d.toFixed(2)} mm)</b>이 가장 큼.
+     모재두께 <b>${cur().t} mm</b> 구간의 허용 한계는 크기 <b>${c.L[0].toFixed(1)} mm</b> · 결함점수 <b>${c.L[1]}점</b>이고,
+     실제 결함점수 합은 <b>${c.sc}점</b>이므로 규정 마진 <b>${c.margin.toFixed(3)}</b> —
+     <b>${c.grade}급 (${c.margin>1?'불합격':'합격'})</b>.` +
+    (SENIOR ? ' 검사자 판단과 대조한 뒤 최종 확정하면 관리자 대시보드에 기록됨.'
+            : ` 작업자 판단 기록 완료 후 ${c.margin>1?'책임 검사원 이관을 권장함':'최종 확인 저장이 가능함'}.`);
+}
+function renderProgress(){
+  const n = judged.filter(x=>x!=null).length, tot = REG().length;
+  document.getElementById('done').textContent = n;
+  document.getElementById('tot').textContent = tot;
+  document.getElementById('pct').textContent = Math.round(100*n/tot) + '%';
+  document.getElementById('pfill').style.width = (100*n/tot) + '%';
+  document.getElementById('save').disabled = n < tot;
+}
+function renderPayload(){
+  const c = ruleCalc(), cs = cur();
+  const rg = REG().map((r,i)=>`[${r.conf.toFixed(2)},${judged[i]==null?'null':judged[i]}]`).join(',');
+  document.getElementById('payload').innerHTML =
+`{ "id":        "${cs.id}",
+  "ship":      "${cs.ship.split(' ')[0]}",   "part": "${cs.part}",   "method": "RT",
+  <b>"t":         ${cs.t}</b>,
+  "inspector": "${SENIOR ? 'I12' : 'I05'}",        "lvl": "${SENIOR ? '시니어' : '중급'}",
+  "cls":       "porosity",   <b>"ndef": ${REG().length}</b>,  <b>"maxd": ${Math.max(...REG().map(r=>r.d)).toFixed(2)}</b>,
+  "cluster":   "single_major",
+  <b>"regions":   [${rg}]</b>,
+  <b>"report":    "${report}"</b>,   "rsec": 202,
+  "margin":    ${c.margin.toFixed(3)},   "grade": ${c.grade},   "sec": 234${SENIOR ? ',\n  <i>"senior":    1,          "esc": 1</i>' : ''} }`;
+}
+function renderAll(){ renderMeta(); renderInbox(); renderMarks(); renderTabs(); renderPanel();
+                      renderSummary(); renderProgress(); renderPayload(); }
+
+document.querySelectorAll('.jb').forEach(b=>b.onclick = ()=>{
+  judged[sel] = +b.dataset.rev;
+  const nxt = judged.findIndex(x=>x==null);
+  if(nxt >= 0) sel = nxt;
+  renderAll();
+});
+document.querySelectorAll('#rev button').forEach(b=>b.onclick = ()=>{
+  report = b.dataset.r;
+  document.querySelectorAll('#rev button').forEach(x=>x.setAttribute('aria-pressed', String(x===b)));
+  renderPayload();
+});
+document.getElementById('ov-on').onclick = ()=>{
+  document.getElementById('ovl').style.display = '';
+  document.getElementById('ov-on').setAttribute('aria-pressed','true');
+  document.getElementById('ov-off').setAttribute('aria-pressed','false');
+};
+document.getElementById('ov-off').onclick = ()=>{
+  document.getElementById('ovl').style.display = 'none';
+  document.getElementById('ov-on').setAttribute('aria-pressed','false');
+  document.getElementById('ov-off').setAttribute('aria-pressed','true');
+};
+document.querySelectorAll('.topbar .tab').forEach(b=>b.onclick = ()=>
+  document.querySelectorAll('.topbar .tab').forEach(x=>x.setAttribute('aria-selected', String(x===b))));
+document.getElementById('save').onclick = ()=>{
+  const btn = document.getElementById('save');
+  doneCases.add(cur().id);
+  btn.textContent = SENIOR ? '확정됨 — 관리자 대시보드로 기록' : '저장됨 — 관리자 대시보드로 전송';
+  btn.disabled = true;
+  renderInbox();
+};
+document.getElementById('esc').onclick = ()=>{
+  const btn = document.getElementById('esc');
+  btn.textContent = SENIOR ? '검사자에게 반려됨' : '책임 검사원에게 이관됨';
+  btn.disabled = true;
+};
+
+judged = REG().map(()=>null);
+renderChrome(); renderAll();
+</script>
+</body>
+</html>

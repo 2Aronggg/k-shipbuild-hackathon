@@ -1,0 +1,260 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1000" width="1500" height="1000" role="img" aria-label="WeldScan AI 시스템 아키텍처 — 현장 입력과 관리자 대시보드가 FastAPI 백엔드의 탐지·판정 파이프라인을 거쳐 규정 근거와 판정 이력을 저장하는 구조" xmlns:c2pa="http://c2pa.org/manifest"><metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTo1MTMyMjZlNy03YTE2LTRlMDYtOTU5ZC0zOTRhOWI5NzcxNmEAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaO8zpwZESxyawnRzQmMtnqsAAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDo4NTBiNDNlYi02ZjkwLTQyMjktYTBlYS1kNjJjOTA3NmIwNjJscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNo8wxu2dyagC9XcRB23xFj/AAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggT1UMi7aeXoU0ZQLc1/BmJH+JYhjSVNPl9vl5gWNQDQSkZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaPto8oL6S4uqxbQRM9mLm2IAAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRMAAAAAAAAAAAAAAAAZGhhc2hYIJEQC6zioAOIEU5DCUmHy5+UnQTdBMczyDBthTllEMIzZG5hbWVuanVtYmYgbWFuaWZlc3RqZXhjbHVzaW9uc4GiZXN0YXJ0GQF4Zmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOjUxMzIyNmU3LTdhMTYtNGUwNi05NTlkLTM5NGE5Yjk3NzE2YS9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOmE5MDVkNzJiLWVmZTgtNDI0NS1iZTRlLTc2MTQ4YTBkYzY2NnJjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCBPVQyLtp5ehTRlAtzX8GYkf4liGNJU0+X2+XmBY1ANBKJjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFggFgOcOBHbgMmbC5BURHEpidfogrOpe0LKo5Ifkwp37uiiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFggiEaKTujFDwoFPLXpxQ08+KtdL0cxfJivgrOIBw0jfe10Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQH4S/0gFHiNGk47fC7z6NUEawQL0lP6HRzvsAJsSdrtCTBir3N2SuJZQXL602tFdngmd0i0F5FdVj0//9hE1xKk=</c2pa:manifest></metadata>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#7b8b95"/></marker></defs>
+<rect width="1500" height="1000" fill="#ffffff"/>
+<text x="36" y="40" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="20" font-weight="700" fill="#16202a">WeldScan AI — 시스템 아키텍처</text>
+<text x="36" y="62" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="12" fill="#8b9aa4">용접부 비파괴검사 판정 보조 · 탐지는 AI, 합부 판정은 선급 규정, 최종 확정은 검사자</text>
+<rect x="470" y="26" width="34" height="16" rx="8" fill="#dff0e5" stroke="#1d7a4f" stroke-opacity="0.35"/>
+<text x="487" y="37.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10" font-weight="600" fill="#1d7a4f">구현</text>
+<text x="512" y="38" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11" fill="#5b6b76">코드·데이터 확보</text>
+<rect x="620" y="26" width="34" height="16" rx="8" fill="#f8efd4" stroke="#8b6a12" stroke-opacity="0.35"/>
+<text x="637" y="37.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10" font-weight="600" fill="#8b6a12">설계</text>
+<text x="662" y="38" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11" fill="#5b6b76">인터페이스 확정, 미구현</text>
+<rect x="1230" y="20" width="234" height="78" rx="10" fill="#f6f7f8" stroke="#d5dbe0" stroke-width="1.4"/>
+<text x="1347" y="44" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="12" font-weight="600" fill="#5b6b76">외부 서비스</text>
+<rect x="1248" y="52" width="198" height="36" rx="7" fill="#ffffff" stroke="#c3ccd3" stroke-width="1.3"/>
+<text x="1347.0" y="74.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="13.5" font-weight="600" fill="#16202a">LLM API (OpenAI · Claude)</text>
+<rect x="36" y="120" width="228" height="586" rx="10" fill="#eef4fa" stroke="#bed4e8" stroke-width="1.4"/>
+<text x="52" y="147" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="14.5" font-weight="600" fill="#16202a">클라이언트</text>
+<circle cx="150" cy="179" r="8.5" fill="#5b6b76"/>
+<path d="M135 203 a15 15 0 0 1 30 0 z" fill="#5b6b76"/>
+<text x="150" y="222" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="12.5" font-weight="600" fill="#16202a">작업자 · 검사자</text>
+<rect x="56" y="236" width="188" height="74" rx="7" fill="#ffffff" stroke="#9daab3" stroke-width="1.3"/>
+<text x="130.0" y="260.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="13.5" font-weight="600" fill="#16202a">현장 입력 UI</text>
+<text x="150.0" y="277.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" font-weight="400" fill="#5b6b76">Next.js · 모바일/태블릿</text>
+<text x="150.0" y="294.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" font-weight="400" fill="#5b6b76">3단계 선택 → 사진 업로드</text>
+<rect x="201" y="243" width="34" height="16" rx="8" fill="#f8efd4" stroke="#8b6a12" stroke-opacity="0.35" stroke-width="1"/>
+<text x="218.0" y="254.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10" font-weight="600" fill="#8b6a12">설계</text>
+<circle cx="150" cy="409" r="8.5" fill="#5b6b76"/>
+<path d="M135 433 a15 15 0 0 1 30 0 z" fill="#5b6b76"/>
+<text x="150" y="452" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="12.5" font-weight="600" fill="#16202a">관리자 · QC</text>
+<rect x="56" y="466" width="188" height="74" rx="7" fill="#ffffff" stroke="#9daab3" stroke-width="1.3"/>
+<text x="130.0" y="490.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="13.5" font-weight="600" fill="#16202a">판정 관제 대시보드</text>
+<text x="150.0" y="507.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" font-weight="400" fill="#5b6b76">단일 HTML · 데스크톱</text>
+<text x="150.0" y="524.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" font-weight="400" fill="#5b6b76">판정 산포 · 경보 · 근거</text>
+<rect x="201" y="473" width="34" height="16" rx="8" fill="#dff0e5" stroke="#1d7a4f" stroke-opacity="0.35" stroke-width="1"/>
+<text x="218.0" y="484.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10" font-weight="600" fill="#1d7a4f">구현</text>
+<text x="150" y="580" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#8b9aa4">두 화면 모두</text>
+<text x="150" y="596" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#8b9aa4">추가 입력을 요구하지 않음</text>
+<text x="150" y="620" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#8b9aa4">검사자는 평소처럼</text>
+<text x="150" y="636" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#8b9aa4">합부만 선택</text>
+<rect x="292" y="120" width="886" height="586" rx="10" fill="#f7f8f9" stroke="#d5dbe0" stroke-width="1.4"/>
+<text x="308" y="147" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="14.5" font-weight="600" fill="#16202a">백엔드 · FastAPI</text>
+<text x="430" y="145" font-family="'IBM Plex Mono','SFMono-Regular',Menlo,monospace" font-size="11" fill="#8b9aa4">Docker · Python</text>
+<rect x="310" y="160" width="212" height="528" rx="10" fill="#ffffff" stroke="#dde3e7" stroke-width="1.4"/>
+<text x="322" y="184" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="14.5" font-weight="600" fill="#16202a">API 계층</text>
+<rect x="324" y="200" width="184" height="62" rx="7" fill="#ffffff" stroke="#9daab3" stroke-width="1.3"/>
+<text x="396.0" y="227.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="13.5" font-weight="600" fill="#16202a">검사 요청 · 결과</text>
+<text x="416.0" y="244.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" font-weight="400" fill="#5b6b76">RT 이미지 · 검사 조건</text>
+<rect x="465" y="207" width="34" height="16" rx="8" fill="#f8efd4" stroke="#8b6a12" stroke-opacity="0.35" stroke-width="1"/>
+<text x="482.0" y="218.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10" font-weight="600" fill="#8b6a12">설계</text>
+<rect x="324" y="288" width="184" height="62" rx="7" fill="#ffffff" stroke="#9daab3" stroke-width="1.3"/>
+<text x="396.0" y="315.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="13.5" font-weight="600" fill="#16202a">대시보드 조회</text>
+<text x="416.0" y="332.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" font-weight="400" fill="#5b6b76">품질 지표 · 판정 산포</text>
+<rect x="465" y="295" width="34" height="16" rx="8" fill="#f8efd4" stroke="#8b6a12" stroke-opacity="0.35" stroke-width="1"/>
+<text x="482.0" y="306.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10" font-weight="600" fill="#8b6a12">설계</text>
+<rect x="324" y="376" width="184" height="62" rx="7" fill="#ffffff" stroke="#9daab3" stroke-width="1.3"/>
+<text x="396.0" y="403.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="13.5" font-weight="600" fill="#16202a">검사 이력</text>
+<text x="416.0" y="420.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" font-weight="400" fill="#5b6b76">확정 건 저장 · 조회</text>
+<rect x="465" y="383" width="34" height="16" rx="8" fill="#f8efd4" stroke="#8b6a12" stroke-opacity="0.35" stroke-width="1"/>
+<text x="482.0" y="394.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10" font-weight="600" fill="#8b6a12">설계</text>
+<rect x="324" y="464" width="184" height="62" rx="7" fill="#ffffff" stroke="#9daab3" stroke-width="1.3"/>
+<text x="396.0" y="491.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="13.5" font-weight="600" fill="#16202a">인증 · 감사 로그</text>
+<text x="416.0" y="508.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" font-weight="400" fill="#5b6b76">누가 무엇을 확정했는가</text>
+<rect x="465" y="471" width="34" height="16" rx="8" fill="#f8efd4" stroke="#8b6a12" stroke-opacity="0.35" stroke-width="1"/>
+<text x="482.0" y="482.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10" font-weight="600" fill="#8b6a12">설계</text>
+<text x="416" y="574" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#8b9aa4">엔드포인트 스키마는</text>
+<text x="416" y="590" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#8b9aa4">검출기 출력 계약 v1.0</text>
+<text x="416" y="606" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#8b9aa4">기준으로 확정</text>
+<rect x="546" y="160" width="614" height="528" rx="10" fill="#fffaec" stroke="#e2cd93" stroke-width="1.4"/>
+<text x="560" y="184" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="14.5" font-weight="600" fill="#16202a">추론 · 판정 파이프라인</text>
+<rect x="562" y="200" width="284" height="66" rx="7" fill="#ffffff" stroke="#9daab3" stroke-width="1.3"/>
+<text x="684.0" y="229.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="13.5" font-weight="600" fill="#16202a">YOLOv8-seg 결함 탐지</text>
+<text x="704.0" y="246.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" font-weight="400" fill="#5b6b76">기공 단일 클래스 · 1280px</text>
+<circle cx="578" cy="215" r="9.5" fill="#d6ac3f" opacity="0.18"/>
+<text x="578" y="219.5" text-anchor="middle" font-family="'IBM Plex Mono','SFMono-Regular',Menlo,monospace" font-size="11" font-weight="600" fill="#16202a">1</text>
+<rect x="803" y="207" width="34" height="16" rx="8" fill="#dff0e5" stroke="#1d7a4f" stroke-opacity="0.35" stroke-width="1"/>
+<text x="820.0" y="218.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10" font-weight="600" fill="#1d7a4f">구현</text>
+<rect x="562" y="284" width="284" height="66" rx="7" fill="#ffffff" stroke="#9daab3" stroke-width="1.3"/>
+<text x="684.0" y="313.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="13.5" font-weight="600" fill="#16202a">결함 구조화</text>
+<text x="704.0" y="330.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" font-weight="400" fill="#5b6b76">폴리곤 → 긴지름(mm) 산출</text>
+<circle cx="578" cy="299" r="9.5" fill="#d6ac3f" opacity="0.18"/>
+<text x="578" y="303.5" text-anchor="middle" font-family="'IBM Plex Mono','SFMono-Regular',Menlo,monospace" font-size="11" font-weight="600" fill="#16202a">2</text>
+<rect x="803" y="291" width="34" height="16" rx="8" fill="#dff0e5" stroke="#1d7a4f" stroke-opacity="0.35" stroke-width="1"/>
+<text x="820.0" y="302.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10" font-weight="600" fill="#1d7a4f">구현</text>
+<rect x="562" y="368" width="284" height="66" rx="7" fill="#fef0cd" stroke="#d6ac3f" stroke-width="1.3"/>
+<text x="684.0" y="397.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="13.5" font-weight="600" fill="#16202a">룰 엔진 · 허용 한계 판정</text>
+<text x="704.0" y="414.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" font-weight="400" fill="#5b6b76">두께별 허용치 → 마진 → 등급</text>
+<circle cx="578" cy="383" r="9.5" fill="#d6ac3f" opacity="0.18"/>
+<text x="578" y="387.5" text-anchor="middle" font-family="'IBM Plex Mono','SFMono-Regular',Menlo,monospace" font-size="11" font-weight="600" fill="#16202a">3</text>
+<rect x="803" y="375" width="34" height="16" rx="8" fill="#dff0e5" stroke="#1d7a4f" stroke-opacity="0.35" stroke-width="1"/>
+<text x="820.0" y="386.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10" font-weight="600" fill="#1d7a4f">구현</text>
+<rect x="862" y="200" width="284" height="66" rx="7" fill="#ffffff" stroke="#9daab3" stroke-width="1.3"/>
+<text x="984.0" y="229.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="13.5" font-weight="600" fill="#16202a">규정 근거 검색</text>
+<text x="1004.0" y="246.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" font-weight="400" fill="#5b6b76">dense 0.6 + BM25 0.4</text>
+<circle cx="878" cy="215" r="9.5" fill="#d6ac3f" opacity="0.18"/>
+<text x="878" y="219.5" text-anchor="middle" font-family="'IBM Plex Mono','SFMono-Regular',Menlo,monospace" font-size="11" font-weight="600" fill="#16202a">4</text>
+<rect x="1103" y="207" width="34" height="16" rx="8" fill="#dff0e5" stroke="#1d7a4f" stroke-opacity="0.35" stroke-width="1"/>
+<text x="1120.0" y="218.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10" font-weight="600" fill="#1d7a4f">구현</text>
+<rect x="862" y="284" width="284" height="66" rx="7" fill="#ffffff" stroke="#9daab3" stroke-width="1.3"/>
+<text x="984.0" y="313.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="13.5" font-weight="600" fill="#16202a">유사사례 매칭</text>
+<text x="1004.0" y="330.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" font-weight="400" fill="#5b6b76">형상 6차원 최근접 검색</text>
+<circle cx="878" cy="299" r="9.5" fill="#d6ac3f" opacity="0.18"/>
+<text x="878" y="303.5" text-anchor="middle" font-family="'IBM Plex Mono','SFMono-Regular',Menlo,monospace" font-size="11" font-weight="600" fill="#16202a">5</text>
+<rect x="1103" y="291" width="34" height="16" rx="8" fill="#f8efd4" stroke="#8b6a12" stroke-opacity="0.35" stroke-width="1"/>
+<text x="1120.0" y="302.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10" font-weight="600" fill="#8b6a12">설계</text>
+<rect x="862" y="368" width="284" height="66" rx="7" fill="#ffffff" stroke="#9daab3" stroke-width="1.3"/>
+<text x="984.0" y="397.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="13.5" font-weight="600" fill="#16202a">LLM 보고서 초안</text>
+<text x="1004.0" y="414.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" font-weight="400" fill="#5b6b76">판정 + 조항 인용 + 권고</text>
+<circle cx="878" cy="383" r="9.5" fill="#d6ac3f" opacity="0.18"/>
+<text x="878" y="387.5" text-anchor="middle" font-family="'IBM Plex Mono','SFMono-Regular',Menlo,monospace" font-size="11" font-weight="600" fill="#16202a">6</text>
+<rect x="1103" y="375" width="34" height="16" rx="8" fill="#f8efd4" stroke="#8b6a12" stroke-opacity="0.35" stroke-width="1"/>
+<text x="1120.0" y="386.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10" font-weight="600" fill="#8b6a12">설계</text>
+<rect x="562" y="456" width="284" height="62" rx="7" fill="#ffffff" stroke="#9daab3" stroke-width="1.3"/>
+<text x="684.0" y="483.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="13.5" font-weight="600" fill="#16202a">검사자 검토 · 확정</text>
+<text x="704.0" y="500.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" font-weight="400" fill="#5b6b76">최종 합부는 자격 보유자</text>
+<circle cx="578" cy="471" r="9.5" fill="#d6ac3f" opacity="0.18"/>
+<text x="578" y="475.5" text-anchor="middle" font-family="'IBM Plex Mono','SFMono-Regular',Menlo,monospace" font-size="11" font-weight="600" fill="#16202a">7</text>
+<rect x="803" y="463" width="34" height="16" rx="8" fill="#f8efd4" stroke="#8b6a12" stroke-opacity="0.35" stroke-width="1"/>
+<text x="820.0" y="474.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10" font-weight="600" fill="#8b6a12">설계</text>
+<rect x="862" y="456" width="284" height="62" rx="7" fill="#ffffff" stroke="#9daab3" stroke-width="1.3"/>
+<text x="984.0" y="483.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="13.5" font-weight="600" fill="#16202a">에스컬레이션 판정</text>
+<text x="1004.0" y="500.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" font-weight="400" fill="#5b6b76">안전장치 6개 조건</text>
+<circle cx="878" cy="471" r="9.5" fill="#d6ac3f" opacity="0.18"/>
+<text x="878" y="475.5" text-anchor="middle" font-family="'IBM Plex Mono','SFMono-Regular',Menlo,monospace" font-size="11" font-weight="600" fill="#16202a">8</text>
+<rect x="1103" y="463" width="34" height="16" rx="8" fill="#f8efd4" stroke="#8b6a12" stroke-opacity="0.35" stroke-width="1"/>
+<text x="1120.0" y="474.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10" font-weight="600" fill="#8b6a12">설계</text>
+<text x="853" y="560" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11" fill="#5b6b76">합부 판정은 AI가 아니라 ③ 룰 엔진이 결정 — 선급 규정표를 그대로 조회하므로 누가 계산해도 같은 값</text>
+<text x="853" y="580" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11" fill="#5b6b76">①은 결함을 찾고 치수를 재는 데까지, ⑥은 문장을 쓰는 데까지 담당</text>
+<rect x="562" y="600" width="584" height="68" rx="7" fill="#ffffff" stroke="#e0e5e8"/>
+<text x="578" y="622" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11" font-weight="600" fill="#16202a">현재 한계</text>
+<text x="578" y="641" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#5b6b76">① 결함 단위 마스크 품질 mAP50-95 0.118 — 치수 신뢰도 검증 필요</text>
+<text x="578" y="658" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#5b6b76">② 픽셀→mm 환산값이 공개 데이터에 없음 — 현장 장비 사양에서 확보 필요</text>
+<rect x="1206" y="120" width="258" height="586" rx="10" fill="#edf4fd" stroke="#b9d2ee" stroke-width="1.4"/>
+<text x="1222" y="147" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="14.5" font-weight="600" fill="#16202a">데이터 · 모델</text>
+<path d="M1224 169 a111.0 9 0 0 1 222 0 v50 a111.0 9 0 0 1 -222 0 z" fill="#ffffff" stroke="#b9d2ee" stroke-width="1.3"/>
+<path d="M1224 169 a111.0 9 0 0 0 222 0" fill="none" stroke="#b9d2ee" stroke-width="1.3"/>
+<text x="1335.0" y="188.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="12.5" font-weight="600" fill="#16202a">탐지 가중치</text>
+<text x="1335.0" y="205.5" text-anchor="middle" font-family="'IBM Plex Mono','SFMono-Regular',Menlo,monospace" font-size="10.5" font-weight="400" fill="#8b9aa4">best.pt · 24MB</text>
+<path d="M1224 257 a111.0 9 0 0 1 222 0 v50 a111.0 9 0 0 1 -222 0 z" fill="#ffffff" stroke="#b9d2ee" stroke-width="1.3"/>
+<path d="M1224 257 a111.0 9 0 0 0 222 0" fill="none" stroke="#b9d2ee" stroke-width="1.3"/>
+<text x="1335.0" y="276.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="12.5" font-weight="600" fill="#16202a">규정 벡터DB</text>
+<text x="1335.0" y="293.5" text-anchor="middle" font-family="'IBM Plex Mono','SFMono-Regular',Menlo,monospace" font-size="10.5" font-weight="400" fill="#8b9aa4">FAISS + BM25 · 244청크</text>
+<path d="M1224 345 a111.0 9 0 0 1 222 0 v50 a111.0 9 0 0 1 -222 0 z" fill="#ffffff" stroke="#b9d2ee" stroke-width="1.3"/>
+<path d="M1224 345 a111.0 9 0 0 0 222 0" fill="none" stroke="#b9d2ee" stroke-width="1.3"/>
+<text x="1335.0" y="364.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="12.5" font-weight="600" fill="#16202a">규정 판정표</text>
+<text x="1335.0" y="381.5" text-anchor="middle" font-family="'IBM Plex Mono','SFMono-Regular',Menlo,monospace" font-size="10.5" font-weight="400" fill="#8b9aa4">KR 부록2-7 · 5종</text>
+<path d="M1224 433 a111.0 9 0 0 1 222 0 v50 a111.0 9 0 0 1 -222 0 z" fill="#ffffff" stroke="#b9d2ee" stroke-width="1.3"/>
+<path d="M1224 433 a111.0 9 0 0 0 222 0" fill="none" stroke="#b9d2ee" stroke-width="1.3"/>
+<text x="1335.0" y="452.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="12.5" font-weight="600" fill="#16202a">결함 사례 DB</text>
+<text x="1335.0" y="469.5" text-anchor="middle" font-family="'IBM Plex Mono','SFMono-Regular',Menlo,monospace" font-size="10.5" font-weight="400" fill="#8b9aa4">형상 특징 + 판정 결과</text>
+<path d="M1224 521 a111.0 9 0 0 1 222 0 v50 a111.0 9 0 0 1 -222 0 z" fill="#ffffff" stroke="#b9d2ee" stroke-width="1.3"/>
+<path d="M1224 521 a111.0 9 0 0 0 222 0" fill="none" stroke="#b9d2ee" stroke-width="1.3"/>
+<text x="1335.0" y="540.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="12.5" font-weight="600" fill="#16202a">판정 이력 DB</text>
+<text x="1335.0" y="557.5" text-anchor="middle" font-family="'IBM Plex Mono','SFMono-Regular',Menlo,monospace" font-size="10.5" font-weight="400" fill="#8b9aa4">검사자 판정 · 확정 이력</text>
+<text x="1335" y="612" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#8b9aa4">판정 이력이 쌓일수록</text>
+<text x="1335" y="628" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#8b9aa4">사례 검색 품질과</text>
+<text x="1335" y="644" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#8b9aa4">판정 산포 측정이 함께 개선</text>
+<rect x="36" y="734" width="1428" height="230" rx="10" fill="#f0f7f2" stroke="#b8d8c4" stroke-width="1.4"/>
+<text x="52" y="761" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="14.5" font-weight="600" fill="#16202a">사전 구축 · 오프라인</text>
+<text x="196" y="759" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" fill="#8b9aa4">서비스 시작 전 1회 · 재학습 시 반복</text>
+<rect x="56" y="782" width="240" height="58" rx="7" fill="#ffffff" stroke="#9daab3" stroke-width="1.3"/>
+<text x="156.0" y="807.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="13.5" font-weight="600" fill="#16202a">AI허브 용접 라벨</text>
+<text x="176.0" y="824.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" font-weight="400" fill="#5b6b76">RT 일반강재 54,053장</text>
+<rect x="253" y="789" width="34" height="16" rx="8" fill="#dff0e5" stroke="#1d7a4f" stroke-opacity="0.35" stroke-width="1"/>
+<text x="270.0" y="800.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10" font-weight="600" fill="#1d7a4f">구현</text>
+<rect x="341" y="782" width="240" height="58" rx="7" fill="#ffffff" stroke="#9daab3" stroke-width="1.3"/>
+<text x="441.0" y="807.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="13.5" font-weight="600" fill="#16202a">이미지 · 라벨 정합성</text>
+<text x="461.0" y="824.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" font-weight="400" fill="#5b6b76">폴리곤 유효성 검증</text>
+<rect x="538" y="789" width="34" height="16" rx="8" fill="#dff0e5" stroke="#1d7a4f" stroke-opacity="0.35" stroke-width="1"/>
+<text x="555.0" y="800.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10" font-weight="600" fill="#1d7a4f">구현</text>
+<rect x="626" y="782" width="240" height="58" rx="7" fill="#ffffff" stroke="#9daab3" stroke-width="1.3"/>
+<text x="726.0" y="807.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="13.5" font-weight="600" fill="#16202a">YOLO 포맷 변환</text>
+<text x="746.0" y="824.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" font-weight="400" fill="#5b6b76">1280×720 타일 43,068장</text>
+<rect x="823" y="789" width="34" height="16" rx="8" fill="#dff0e5" stroke="#1d7a4f" stroke-opacity="0.35" stroke-width="1"/>
+<text x="840.0" y="800.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10" font-weight="600" fill="#1d7a4f">구현</text>
+<rect x="911" y="782" width="240" height="58" rx="7" fill="#ffffff" stroke="#9daab3" stroke-width="1.3"/>
+<text x="1011.0" y="807.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="13.5" font-weight="600" fill="#16202a">YOLOv8-seg 학습</text>
+<text x="1031.0" y="824.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" font-weight="400" fill="#5b6b76">기공 단일 클래스</text>
+<rect x="1108" y="789" width="34" height="16" rx="8" fill="#dff0e5" stroke="#1d7a4f" stroke-opacity="0.35" stroke-width="1"/>
+<text x="1125.0" y="800.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10" font-weight="600" fill="#1d7a4f">구현</text>
+<rect x="1196" y="782" width="240" height="58" rx="7" fill="#ffffff" stroke="#9daab3" stroke-width="1.3"/>
+<text x="1296.0" y="807.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="13.5" font-weight="600" fill="#16202a">성능 평가</text>
+<text x="1316.0" y="824.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" font-weight="400" fill="#5b6b76">검출률 .83 / 정확도 .97</text>
+<rect x="1393" y="789" width="34" height="16" rx="8" fill="#dff0e5" stroke="#1d7a4f" stroke-opacity="0.35" stroke-width="1"/>
+<text x="1410.0" y="800.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10" font-weight="600" fill="#1d7a4f">구현</text>
+<rect x="56" y="872" width="240" height="58" rx="7" fill="#ffffff" stroke="#9daab3" stroke-width="1.3"/>
+<text x="156.0" y="897.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="13.5" font-weight="600" fill="#16202a">KR 선급 규정 PDF</text>
+<text x="176.0" y="914.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" font-weight="400" fill="#5b6b76">제2편 적용지침 부록2-7</text>
+<rect x="253" y="879" width="34" height="16" rx="8" fill="#dff0e5" stroke="#1d7a4f" stroke-opacity="0.35" stroke-width="1"/>
+<text x="270.0" y="890.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10" font-weight="600" fill="#1d7a4f">구현</text>
+<rect x="341" y="872" width="240" height="58" rx="7" fill="#ffffff" stroke="#9daab3" stroke-width="1.3"/>
+<text x="441.0" y="897.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="13.5" font-weight="600" fill="#16202a">조항 분리 · 정제</text>
+<text x="461.0" y="914.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" font-weight="400" fill="#5b6b76">본문 청킹</text>
+<rect x="538" y="879" width="34" height="16" rx="8" fill="#dff0e5" stroke="#1d7a4f" stroke-opacity="0.35" stroke-width="1"/>
+<text x="555.0" y="890.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10" font-weight="600" fill="#1d7a4f">구현</text>
+<rect x="626" y="872" width="240" height="58" rx="7" fill="#ffffff" stroke="#9daab3" stroke-width="1.3"/>
+<text x="726.0" y="897.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="13.5" font-weight="600" fill="#16202a">임베딩 + BM25 인덱싱</text>
+<text x="746.0" y="914.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" font-weight="400" fill="#5b6b76">MiniLM-L12 · 384차원</text>
+<rect x="823" y="879" width="34" height="16" rx="8" fill="#dff0e5" stroke="#1d7a4f" stroke-opacity="0.35" stroke-width="1"/>
+<text x="840.0" y="890.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10" font-weight="600" fill="#1d7a4f">구현</text>
+<rect x="911" y="872" width="240" height="58" rx="7" fill="#ffffff" stroke="#9daab3" stroke-width="1.3"/>
+<text x="1011.0" y="897.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="13.5" font-weight="600" fill="#16202a">벡터DB 적재</text>
+<text x="1031.0" y="914.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" font-weight="400" fill="#5b6b76">244청크</text>
+<rect x="1108" y="879" width="34" height="16" rx="8" fill="#dff0e5" stroke="#1d7a4f" stroke-opacity="0.35" stroke-width="1"/>
+<text x="1125.0" y="890.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10" font-weight="600" fill="#1d7a4f">구현</text>
+<rect x="1196" y="872" width="240" height="58" rx="7" fill="#ffffff" stroke="#9daab3" stroke-width="1.3"/>
+<text x="1296.0" y="897.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="13.5" font-weight="600" fill="#16202a">판정표 추출</text>
+<text x="1316.0" y="914.0" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="11.5" font-weight="400" fill="#5b6b76">허용 한계 5종 → 룰 엔진</text>
+<rect x="1393" y="879" width="34" height="16" rx="8" fill="#dff0e5" stroke="#1d7a4f" stroke-opacity="0.35" stroke-width="1"/>
+<text x="1410.0" y="890.5" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10" font-weight="600" fill="#1d7a4f">구현</text>
+<path d="M296 811 L335 811" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M296 901 L335 901" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M581 811 L620 811" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M581 901 L620 901" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M866 811 L905 811" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M866 901 L905 901" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M1151 811 L1190 811" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M1151 901 L1190 901" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M150 224 L150 236" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M150 454 L150 466" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M244 273 L276 273 L276 231 L318 231" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="276" y="262" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#7b8b95">검사 요청</text>
+<path d="M244 503 L276 503 L276 319 L318 319" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="279" y="420" text-anchor="start" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#7b8b95">지표 조회</text>
+<path d="M508 231 L554 231" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="531" y="252" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#7b8b95">이미지 · 두께</text>
+<path d="M508 407 L532 407 L532 487 L556 487" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="536" y="466" text-anchor="start" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#7b8b95">이력 조회</text>
+<path d="M704 266 L704 282" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="712" y="278" text-anchor="start" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#7b8b95">폴리곤</text>
+<path d="M704 350 L704 366" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="712" y="362" text-anchor="start" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#7b8b95">긴지름</text>
+<path d="M846 390 L856 390 L856 190 L1004 190 L1004 198" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="884" y="184" text-anchor="start" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#7b8b95">결함 정보</text>
+<path d="M846 412 L858 412 L858 401 L860 401" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="800" y="452" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#7b8b95">판정 결과</text>
+<path d="M1004 266 L1004 282" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="1012" y="278" text-anchor="start" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#7b8b95">근거 조항</text>
+<path d="M1004 350 L1004 366" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="1012" y="362" text-anchor="start" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#7b8b95">유사 사례</text>
+<path d="M1004 434 L1004 456" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M862 480 L848 480" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="856" y="502" text-anchor="end" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#7b8b95">이관 사유</text>
+<path d="M704 518 L704 536 L1152 536 L1152 497 L1160 497" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M1224 180 L1172 180 L1172 172 L764 172 L764 198" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="960" y="166" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#7b8b95">모델 로드</text>
+<path d="M1224 282 L1184 282 L1184 240 L1150 240" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="1180" y="274" text-anchor="end" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#7b8b95">근거 검색</text>
+<path d="M1224 370 L1192 370 L1192 412 L1150 412" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="1188" y="388" text-anchor="end" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#7b8b95">허용 한계</text>
+<path d="M1224 458 L1176 458 L1176 318 L1150 318" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="1172" y="452" text-anchor="end" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#7b8b95">사례 검색</text>
+<path d="M1152 512 L1224 512 L1224 528" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="1188" y="505" text-anchor="middle" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#7b8b95">확정 기록</text>
+<path d="M1146 390 L1166 390 L1166 106 L1240 106 L1240 94" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="1162" y="140" text-anchor="end" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#7b8b95">프롬프트 · 응답</text>
+<path d="M1316 782 L1316 758 L1290 758 L1290 708" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="1284" y="748" text-anchor="end" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#7b8b95">가중치 적재</text>
+<path d="M1436 901 L1458 901 L1458 758 L1420 758 L1420 708" fill="none" stroke="#7b8b95" stroke-width="1.5" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="1426" y="748" text-anchor="start" font-family="'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif" font-size="10.5" fill="#7b8b95">규정 적재</text>
+</svg>
