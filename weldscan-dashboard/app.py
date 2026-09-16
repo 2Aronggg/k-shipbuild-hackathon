@@ -65,6 +65,12 @@ ROLE_KO = {
     "senior": "검사자 (Inspector)", # 기존 '책임 검사원'을 이미지에 맞게 변경
 }
 
+ROLE_DESC = {
+  "worker": "용접부 검사 및 1차 판정",
+  "admin": "검사 현황 및 품질 관리",
+  "senior": "이관 건 검토 및 최종 판정",
+}
+
 # 표시 순서를 이미지와 동일하게 (작업자 -> 관리자 -> 검사자) 맞추려면 아래 순서를 변경하세요.
 ROLE_ORDER = ["worker", "admin", "senior"]
 
