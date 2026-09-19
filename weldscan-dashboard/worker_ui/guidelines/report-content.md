@@ -39,44 +39,21 @@ Rapidly validate weld soundness, confirm or correct AI findings, compare histori
 
 ```
 - Overall Status: High Risk (Action Required)
-- Suspected Defect Type: Lack of Fusion (LoF) + Cluster Porosity
-- Detected Region Count: 3 Regions (Defect 01, Defect 02, Defect 03)
+- Suspected Defect Type: Lack of Fusion (LoF)
 - Max Risk Level: Level B Defect (ISO 5817 Non-compliant, Depth > 2.5mm)
-- AI Summary: AI flagged 3 anomaly regions. Primary concern: Defect 01 (Lack of Fusion near root pass at 620mm mark, length 18mm). Immediate repair or senior escalation recommended.
+- AI Summary: AI flagged Lack of Fusion near root pass at 620mm mark, length 18mm. Immediate repair or senior escalation recommended.
 ```
 
-## Defect Markers & Overlays Data
+## Defect Marker & Overlay Data
 
 ```
-Defect 01:
-  - Label: Defect 01
-  - Type: Lack of Fusion (LoF)
-  - Location: 622 mm mark (Root Pass)
-  - Dimensions: Length 18.4 mm, Depth 2.8 mm
-  - Risk Level: High Risk (Critical)
-  - AI Confidence: 94.2%
-  - Standard Threshold: ISO 5817 Level B (Limit: 0 mm allowed for LoF)
-  - AI Recommendation: Carbon Arc Gouging & Re-weld
-
-Defect 02:
-  - Label: Defect 02
-  - Type: Cluster Porosity
-  - Location: 710 mm mark (Fill Pass)
-  - Dimensions: Area 12.2 mm², Pore count 6
-  - Risk Level: Needs Review
-  - AI Confidence: 81.5%
-  - Standard Threshold: ISO 5817 Level C (Limit: Max pore diameter 3mm)
-  - AI Recommendation: Grind out fill layer and re-pass
-
-Defect 03:
-  - Label: Defect 03
-  - Type: Slag Inclusion
-  - Location: 545 mm mark (Cap Pass)
-  - Dimensions: Length 6.1 mm, Width 1.2 mm
-  - Risk Level: Normal / Low Risk (Acceptable under Level C)
-  - AI Confidence: 88.0%
-  - Standard Threshold: ISO 5817 Level C (Within acceptable limits)
-  - AI Recommendation: Monitor in future inspection
+- Type: Lack of Fusion (LoF)
+- Location: 622 mm mark (Root Pass)
+- Dimensions: Length 18.4 mm, Depth 2.8 mm
+- Risk Level: High Risk (Critical)
+- AI Confidence: 94.2%
+- Standard Threshold: ISO 5817 Level B (Limit: 0 mm allowed for LoF)
+- AI Recommendation: Carbon Arc Gouging & Re-weld
 ```
 
 ## Historical Similar Cases Data (5 Cases)
