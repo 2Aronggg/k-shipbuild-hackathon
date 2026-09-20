@@ -266,7 +266,7 @@ st.markdown(
       }
       .st-key-login_card div[data-testid="stRadio"] { margin-top:8px; margin-bottom:28px; }
       .st-key-login_card div[role="radiogroup"] {
-        display:grid !important; grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
+        display:grid !important; grid-template-columns:repeat(3,minmax(0,1fr)) !important;
         width:100% !important; max-width:none !important; gap:6px !important;
         box-sizing:border-box;
       }
@@ -521,22 +521,9 @@ def render_worker_dashboard(user) -> None:
     params = urlencode({"role": role, "user_id": user["id"], "name": user["name"], "team": user["team"]})
     worker_url = f"{WORKER_UI_URL}?{params}"
 
-    components.html(
-        f"""
-        <iframe
-          id="worker-frame" src="{worker_url}" style="display:block; width:100%; border:none;" scrolling="no"
-        ></iframe>
-        <script>
-          function resizeWorkerFrame() {{
-            const frame = window.frameElement; const iframe = document.getElementById('worker-frame');
-            if (!frame || !iframe) return;
-            const sessionBarHeight = 70; const targetHeight = window.parent.innerHeight - sessionBarHeight;
-            iframe.style.height = targetHeight + 'px'; frame.style.height = targetHeight + 'px';
-          }}
-          resizeWorkerFrame(); window.parent.addEventListener('resize', resizeWorkerFrame);
-        </script>
-        """, height=900,
-    )
+    # Streamlit 컴포넌트 안에 iframe을 한 번 더 중첩하면 두 스크롤 영역이
+    # 휠 입력을 번갈아 가져가므로, Vite 화면을 단일 iframe으로 직접 렌더링한다.
+    components.iframe(worker_url, height=900, scrolling=True)
 
 
 def render_dashboard() -> None:
@@ -562,10 +549,10 @@ def render_dashboard() -> None:
             st.session_state.user = None
             st.rerun()
 
-    if role == "admin":
+    if role in ("admin", "senior"):
         render_admin_dashboard()
         return
-    if role in ("worker", "senior"):
+    if role == "worker":
         render_worker_dashboard(user)
         return
 
