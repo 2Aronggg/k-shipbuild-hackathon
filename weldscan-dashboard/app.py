@@ -90,7 +90,7 @@ ACCOUNTS = {
 ROLE_KO = {
     "worker": "작업자",
     "admin": "관리자 (Admin)",
-    "senior": "검사자",
+    "senior": "관리자",
 }
 
 ROLE_DESC = {
@@ -422,25 +422,13 @@ def render_login() -> None:
             )
 
             with st.form("login", clear_on_submit=False):
-                st.markdown('<div class="field-label">사번 / ID</div>', unsafe_allow_html=True)
-                user_id = st.text_input(
-                    "사번 / ID", value="", placeholder="사번 또는 아이디를 입력하세요",
-                    autocomplete="username", label_visibility="collapsed",
-                )
-
-                st.markdown('<div class="field-label">비밀번호</div>', unsafe_allow_html=True)
-                password = st.text_input(
-                    "비밀번호", type="password", value="", placeholder="비밀번호를 입력하세요",
-                    autocomplete="current-password", label_visibility="collapsed",
-                )
-
                 st.markdown('<div class="role-note">사용할 화면</div>', unsafe_allow_html=True)
                 with st.container(key="role_actions"):
                     role_label = st.radio(
                         "역할", options=[ROLE_KO[r] for r in ROLE_ORDER],
                         label_visibility="collapsed", horizontal=True,
                     )
-                    submitted = st.form_submit_button("로그인", use_container_width=True)
+                    submitted = st.form_submit_button("선택한 화면으로 이동", use_container_width=True)
 
             # ──────────────────────────────
             # 기관 로고 (카드 안, 주최·주관 1줄 + 참여 1줄)
@@ -481,18 +469,13 @@ def render_login() -> None:
 
         if submitted:
             role = next(r for r in ROLE_ORDER if ROLE_KO[r] == role_label)
-            account = ACCOUNTS.get(user_id.strip())
-
-            if account is None or password != account["pw"]:
-                st.error("아이디 또는 비밀번호가 맞지 않습니다.")
-            elif role not in account["roles"]:
-                st.error(f"이 계정에는 {ROLE_KO[role]} 화면 권한이 없습니다.")
-            else:
-                st.session_state.user = {
-                    "id": user_id.strip(), "name": account["name"],
-                    "team": account["team"], "role": role,
-                }
-                st.rerun()
+            account_id = "worker01" if role == "worker" else "admin"
+            account = ACCOUNTS[account_id]
+            st.session_state.user = {
+                "id": account_id, "name": account["name"],
+                "team": account["team"], "role": role,
+            }
+            st.rerun()
 
 
 # ══════════════════════════════════════════════════

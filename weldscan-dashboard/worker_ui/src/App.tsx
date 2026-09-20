@@ -1147,7 +1147,7 @@ export default function App() {
             </button>
 
             <button
-              onClick={() => showNotification('최종 검사 결과가 품질 DB에 저장되었습니다.')}
+              onClick={() => showNotification('판정이 완료되었습니다.')}
               className="w-full h-9 bg-[#3397D4] hover:bg-[#9FC6F4] hover:text-[#161617] text-[#F4F8FB] rounded-[5px] font-medium text-xs transition-colors shadow-sm"
             >
               검사 최종 확인 저장
