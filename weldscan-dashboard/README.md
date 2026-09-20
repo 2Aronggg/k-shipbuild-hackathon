@@ -10,6 +10,8 @@
 
 ## 빠른 시작
 
+Windows에서 처음 설치하는 경우에는 [처음 실행하기](#처음-실행하기-windows--powershell)를 먼저 따라가세요.
+
 ### Streamlit — 로그인 · 역할 분기 포함 (권장)
 
 ```bash
@@ -21,9 +23,9 @@ streamlit run app.py
 
 | 데모 계정 | 비밀번호 | 접근 가능 화면 |
 |---|---|---|
-| `admin` | `weldscan` | 관리자 · 책임 검사원 · 검사자 |
-| `senior` | `weldscan` | 책임 검사원 · 검사자 |
-| `worker` | `weldscan` | 검사자 |
+| `admin` | `1234` | 관리자 · 검사자 · 작업자 |
+| `inspector01` | `1234` | 검사자 · 작업자 |
+| `worker01` | `1234` | 작업자 |
 
 계정 정보는 `app.py` 상단 `ACCOUNTS`에 있음. 실제 도입 시 사내 인증(LDAP/SSO)으로 교체할 자리임.
 
@@ -248,3 +250,130 @@ python3 connect_yolo.py detect \
   (재)경남테크노파크 주관, 위미르㈜·㈜제이엔이웍스 구축, 2023년
   조선소·중공업·비파괴검사 업체 수집 RT 필름 기반 (휴먼중공업·칸플랜트·국제비파괴검사)
 - **탐지 성능** · `docs/porosity-yolo-usage.md` held-out val 5,350장 기준
+
+---
+
+## 처음 실행하기 (Windows / PowerShell)
+
+이 대시보드는 두 개의 서버로 구성됩니다.
+
+- Streamlit: 로그인 및 관리자 대시보드 (`http://localhost:8501`)
+- React/Vite: 작업자·검사자 화면 (`http://localhost:8443`)
+
+관리자 화면만 확인할 때는 Streamlit만 실행해도 됩니다. 작업자 또는 검사자 화면까지 사용하려면 Streamlit과 Vite 서버를 모두 실행해야 합니다.
+
+### 0. 사전 준비
+
+다음 프로그램을 먼저 설치합니다.
+
+- Python 3.12 이상
+- Node.js 20 이상(LTS 권장)
+- Git
+
+PowerShell에서 설치 여부를 확인합니다.
+
+```powershell
+python --version
+node --version
+npm.cmd --version
+git --version
+```
+
+`python` 명령이 인식되지 않으면 Python 설치 시 `Add Python to PATH`를 선택한 뒤 PowerShell을 새로 열어 주세요.
+
+### 1. 프로젝트 폴더로 이동
+
+저장소를 이미 내려받았다면 다음 명령부터 실행합니다.
+
+```powershell
+cd "C:\Users\achim\OneDrive\바탕 화면\조선 해커톤\k-shipbuild-hackathon\weldscan-dashboard"
+```
+
+다른 위치에 저장했다면 위 경로를 실제 `weldscan-dashboard` 폴더 경로로 바꿉니다.
+
+### 2. Python 가상환경 및 Streamlit 설치 (최초 1회)
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install --upgrade pip
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+```
+
+기존 `.venv`가 다른 Python 경로를 가리켜 실행되지 않는 경우에는 해당 가상환경을 지운 뒤 위 명령으로 다시 생성합니다.
+
+### 3. 작업자 UI 패키지 설치 (최초 1회)
+
+```powershell
+cd worker_ui
+npm.cmd install
+cd ..
+```
+
+Windows PowerShell 실행 정책에 따라 `npm`이 차단될 수 있으므로 이 문서에서는 `npm.cmd`을 사용합니다.
+
+### 4. 서버 실행
+
+두 개의 PowerShell 창을 열고 각각 실행합니다.
+
+#### 터미널 1 — 작업자·검사자 UI
+
+```powershell
+cd "C:\Users\achim\OneDrive\바탕 화면\조선 해커톤\k-shipbuild-hackathon\weldscan-dashboard\worker_ui"
+npm.cmd run dev
+```
+
+정상 실행 주소:
+
+```text
+http://localhost:8443
+```
+
+#### 터미널 2 — Streamlit
+
+```powershell
+cd "C:\Users\achim\OneDrive\바탕 화면\조선 해커톤\k-shipbuild-hackathon\weldscan-dashboard"
+.\.venv\Scripts\python.exe -m streamlit run app.py
+```
+
+브라우저가 자동으로 열리지 않으면 다음 주소로 접속합니다.
+
+```text
+http://localhost:8501
+```
+
+### 5. 로그인 계정
+
+| 역할 | 아이디 | 비밀번호 |
+|---|---|---|
+| 관리자 | `admin` | `1234` |
+| 검사자 | `inspector01` | `1234` |
+| 작업자 | `worker01` | `1234` |
+
+계정 정보는 데모용이며 `app.py`의 `ACCOUNTS`에 정의되어 있습니다.
+
+### 6. 두 번째 실행부터
+
+패키지 설치는 다시 할 필요가 없습니다. 두 개의 PowerShell 창에서 아래 서버만 각각 실행합니다.
+
+```powershell
+# 터미널 1
+cd "C:\Users\achim\OneDrive\바탕 화면\조선 해커톤\k-shipbuild-hackathon\weldscan-dashboard\worker_ui"
+npm.cmd run dev
+```
+
+```powershell
+# 터미널 2
+cd "C:\Users\achim\OneDrive\바탕 화면\조선 해커톤\k-shipbuild-hackathon\weldscan-dashboard"
+.\.venv\Scripts\python.exe -m streamlit run app.py
+```
+
+서버를 종료하려면 각 터미널에서 `Ctrl+C`를 누릅니다.
+
+### 문제 해결
+
+- `No Python at ...`가 표시되면 기존 가상환경이 삭제되거나 이동된 Python을 가리키는 상태입니다. `.venv`를 다시 생성하세요.
+- `npm.ps1 cannot be loaded`가 표시되면 `npm` 대신 `npm.cmd`을 사용하세요.
+- 작업자·검사자 화면이 비어 있거나 연결되지 않으면 `http://localhost:8443`의 Vite 서버가 실행 중인지 확인하세요.
+- 포트가 이미 사용 중이면 기존 Streamlit/Vite 프로세스를 종료한 뒤 다시 실행하세요.
+
+---

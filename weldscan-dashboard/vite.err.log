@@ -1,0 +1,263 @@
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - `__dirname` (vite.config.ts:29:27). Use `import.meta.dirname` instead
+  - JSON import "./.figma/make/site.json" without import attributes (vite.config.ts:6:31). Add `with { type: 'json' }`
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+Port 8443 is in use on a wildcard address, but 127.0.0.1:8443 is available. There may be another server running on a wildcard IP on port 8443.
+오후 6:12:15 [vite] (client) [Unhandled error] ReferenceError: completedCount is not defined
+ > App src/App.tsx:686:17
+    684 |                <span className="text-sm font-semibold text-[#D2D2D7]">기공 영역 검토 진행률</span>
+    685 |                <span className="text-sm font-mono font-bold text-[#F4F8FB]">
+    686 |                  {completedCount} / {porosities.length} 영역 완료 ({progressPercent}%)
+        |                   ^
+    687 |                </span>
+    688 |              </div>
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:28571:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:8030:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10569:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:12205:17
+ > runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:1045:29
+ > performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:19176:21
+ > workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:19004:40
+ > renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:18985:10
+ > performWorkOnRoot node_modules/react-dom/cjs/react-dom-client.development.js:18094:34
+
+오후 6:12:15 [vite] (client) [console.warn] An error occurred in the <App> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+오후 6:12:35 [vite] (client) [Unhandled error] ReferenceError: completedCount is not defined
+ > App src/App.tsx:686:17
+    684 |                <span className="text-sm font-semibold text-[#D2D2D7]">기공 영역 검토 진행률</span>
+    685 |                <span className="text-sm font-mono font-bold text-[#F4F8FB]">
+    686 |                  {completedCount} / {porosities.length} 영역 완료 ({progressPercent}%)
+        |                   ^
+    687 |                </span>
+    688 |              </div>
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:28571:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:8030:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10569:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:12205:17
+ > runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:1045:29
+ > performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:19176:21
+ > workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:19004:40
+ > renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:18985:10
+ > performWorkOnRoot node_modules/react-dom/cjs/react-dom-client.development.js:18094:34
+
+오후 6:12:35 [vite] (client) [console.warn] An error occurred in the <App> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+오후 7:56:40 [vite] Internal server error: Transform failed with 2 errors:
+
+[31m[PARSE_ERROR] [0mExpected corresponding JSX closing tag for 'div'.
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/App.tsx:809:13 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m688 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0mdiv[38;5;249m [0m[38;5;249mc[0m[38;5;249ml[0m[38;5;249ma[0m[38;5;249ms[0m[38;5;249ms[0m[38;5;249mN[0m[38;5;249ma[0m[38;5;249mm[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m"[0m[38;5;249mf[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249mx[0m[38;5;249m [0m[38;5;249mf[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249mx[0m[38;5;249m-[0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249ml[0m[38;5;249m [0m[38;5;249mg[0m[38;5;249ma[0m[38;5;249mp[0m[38;5;249m-[0m[38;5;249m2[0m[38;5;249m"[0m[38;5;249m>[0m
+ [38;5;240m    │[0m              ─┬─  
+ [38;5;240m    │[0m               ╰─── Opened here
+ [38;5;240m    │[0m 
+ [38;5;246m809 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0m[38;5;249m/[0msection[38;5;249m>[0m
+ [38;5;240m    │[0m             ───┬───  
+ [38;5;240m    │[0m                ╰───── Expected `</div>`
+[38;5;246m─────╯[0m
+
+[31m[PARSE_ERROR] [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/App.tsx:810:12 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m810 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m)[0m[38;5;249m}[0m
+ [38;5;240m    │[0m            │ 
+ [38;5;240m    │[0m            ╰─ 
+[38;5;246m─────╯[0m
+
+  Plugin: vite:oxc
+  File: C:/Users/achim/OneDrive/바탕 화면/조선 해커톤/k-shipbuild-hackathon/weldscan-dashboard/worker_ui/src/App.tsx
+      at transformWithOxc (file:///C:/Users/achim/OneDrive/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/%EC%A1%B0%EC%84%A0%20%ED%95%B4%EC%BB%A4%ED%86%A4/k-shipbuild-hackathon/weldscan-dashboard/worker_ui/node_modules/vite/dist/node/chunks/node.js:7208:19)
+      at TransformPluginContext.transform (file:///C:/Users/achim/OneDrive/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/%EC%A1%B0%EC%84%A0%20%ED%95%B4%EC%BB%A4%ED%86%A4/k-shipbuild-hackathon/weldscan-dashboard/worker_ui/node_modules/vite/dist/node/chunks/node.js:7280:26)
+      at EnvironmentPluginContainer.transform (file:///C:/Users/achim/OneDrive/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/%EC%A1%B0%EC%84%A0%20%ED%95%B4%EC%BB%A4%ED%86%A4/k-shipbuild-hackathon/weldscan-dashboard/worker_ui/node_modules/vite/dist/node/chunks/node.js:8172:51)
+      at async loadAndTransform (file:///C:/Users/achim/OneDrive/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/%EC%A1%B0%EC%84%A0%20%ED%95%B4%EC%BB%A4%ED%86%A4/k-shipbuild-hackathon/weldscan-dashboard/worker_ui/node_modules/vite/dist/node/chunks/node.js:19634:26)
+      at async viteTransformMiddleware (file:///C:/Users/achim/OneDrive/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/%EC%A1%B0%EC%84%A0%20%ED%95%B4%EC%BB%A4%ED%86%A4/k-shipbuild-hackathon/weldscan-dashboard/worker_ui/node_modules/vite/dist/node/chunks/node.js:19853:20)
+오후 7:56:40 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 7:56:55 [vite] Internal server error: Transform failed with 2 errors:
+
+[31m[PARSE_ERROR] [0mExpected corresponding JSX closing tag for 'div'.
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/App.tsx:809:13 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m688 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0mdiv[38;5;249m [0m[38;5;249mc[0m[38;5;249ml[0m[38;5;249ma[0m[38;5;249ms[0m[38;5;249ms[0m[38;5;249mN[0m[38;5;249ma[0m[38;5;249mm[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m"[0m[38;5;249mf[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249mx[0m[38;5;249m [0m[38;5;249mf[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249mx[0m[38;5;249m-[0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249ml[0m[38;5;249m [0m[38;5;249mg[0m[38;5;249ma[0m[38;5;249mp[0m[38;5;249m-[0m[38;5;249m2[0m[38;5;249m"[0m[38;5;249m>[0m
+ [38;5;240m    │[0m              ─┬─  
+ [38;5;240m    │[0m               ╰─── Opened here
+ [38;5;240m    │[0m 
+ [38;5;246m809 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0m[38;5;249m/[0msection[38;5;249m>[0m
+ [38;5;240m    │[0m             ───┬───  
+ [38;5;240m    │[0m                ╰───── Expected `</div>`
+[38;5;246m─────╯[0m
+
+[31m[PARSE_ERROR] [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/App.tsx:810:12 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m810 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m)[0m[38;5;249m}[0m
+ [38;5;240m    │[0m            │ 
+ [38;5;240m    │[0m            ╰─ 
+[38;5;246m─────╯[0m
+
+  Plugin: vite:oxc
+  File: C:/Users/achim/OneDrive/바탕 화면/조선 해커톤/k-shipbuild-hackathon/weldscan-dashboard/worker_ui/src/App.tsx
+      at transformWithOxc (file:///C:/Users/achim/OneDrive/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/%EC%A1%B0%EC%84%A0%20%ED%95%B4%EC%BB%A4%ED%86%A4/k-shipbuild-hackathon/weldscan-dashboard/worker_ui/node_modules/vite/dist/node/chunks/node.js:7208:19)
+      at TransformPluginContext.transform (file:///C:/Users/achim/OneDrive/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/%EC%A1%B0%EC%84%A0%20%ED%95%B4%EC%BB%A4%ED%86%A4/k-shipbuild-hackathon/weldscan-dashboard/worker_ui/node_modules/vite/dist/node/chunks/node.js:7280:26)
+      at EnvironmentPluginContainer.transform (file:///C:/Users/achim/OneDrive/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/%EC%A1%B0%EC%84%A0%20%ED%95%B4%EC%BB%A4%ED%86%A4/k-shipbuild-hackathon/weldscan-dashboard/worker_ui/node_modules/vite/dist/node/chunks/node.js:8172:51)
+      at async loadAndTransform (file:///C:/Users/achim/OneDrive/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/%EC%A1%B0%EC%84%A0%20%ED%95%B4%EC%BB%A4%ED%86%A4/k-shipbuild-hackathon/weldscan-dashboard/worker_ui/node_modules/vite/dist/node/chunks/node.js:19634:26)
+      at async viteTransformMiddleware (file:///C:/Users/achim/OneDrive/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/%EC%A1%B0%EC%84%A0%20%ED%95%B4%EC%BB%A4%ED%86%A4/k-shipbuild-hackathon/weldscan-dashboard/worker_ui/node_modules/vite/dist/node/chunks/node.js:19853:20)
+오후 7:56:55 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 7:57:03 [vite] Internal server error: Transform failed with 2 errors:
+
+[31m[PARSE_ERROR] [0mExpected corresponding JSX closing tag for 'div'.
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/App.tsx:807:13 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m688 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0mdiv[38;5;249m [0m[38;5;249mc[0m[38;5;249ml[0m[38;5;249ma[0m[38;5;249ms[0m[38;5;249ms[0m[38;5;249mN[0m[38;5;249ma[0m[38;5;249mm[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m"[0m[38;5;249mf[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249mx[0m[38;5;249m [0m[38;5;249mf[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249mx[0m[38;5;249m-[0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249ml[0m[38;5;249m [0m[38;5;249mg[0m[38;5;249ma[0m[38;5;249mp[0m[38;5;249m-[0m[38;5;249m2[0m[38;5;249m"[0m[38;5;249m>[0m
+ [38;5;240m    │[0m              ─┬─  
+ [38;5;240m    │[0m               ╰─── Opened here
+ [38;5;240m    │[0m 
+ [38;5;246m807 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0m[38;5;249m/[0msection[38;5;249m>[0m
+ [38;5;240m    │[0m             ───┬───  
+ [38;5;240m    │[0m                ╰───── Expected `</div>`
+[38;5;246m─────╯[0m
+
+[31m[PARSE_ERROR] [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/App.tsx:808:12 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m808 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m)[0m[38;5;249m}[0m
+ [38;5;240m    │[0m            │ 
+ [38;5;240m    │[0m            ╰─ 
+[38;5;246m─────╯[0m
+
+  Plugin: vite:oxc
+  File: C:/Users/achim/OneDrive/바탕 화면/조선 해커톤/k-shipbuild-hackathon/weldscan-dashboard/worker_ui/src/App.tsx
+      at transformWithOxc (file:///C:/Users/achim/OneDrive/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/%EC%A1%B0%EC%84%A0%20%ED%95%B4%EC%BB%A4%ED%86%A4/k-shipbuild-hackathon/weldscan-dashboard/worker_ui/node_modules/vite/dist/node/chunks/node.js:7208:19)
+      at TransformPluginContext.transform (file:///C:/Users/achim/OneDrive/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/%EC%A1%B0%EC%84%A0%20%ED%95%B4%EC%BB%A4%ED%86%A4/k-shipbuild-hackathon/weldscan-dashboard/worker_ui/node_modules/vite/dist/node/chunks/node.js:7280:26)
+      at EnvironmentPluginContainer.transform (file:///C:/Users/achim/OneDrive/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/%EC%A1%B0%EC%84%A0%20%ED%95%B4%EC%BB%A4%ED%86%A4/k-shipbuild-hackathon/weldscan-dashboard/worker_ui/node_modules/vite/dist/node/chunks/node.js:8172:51)
+      at async loadAndTransform (file:///C:/Users/achim/OneDrive/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/%EC%A1%B0%EC%84%A0%20%ED%95%B4%EC%BB%A4%ED%86%A4/k-shipbuild-hackathon/weldscan-dashboard/worker_ui/node_modules/vite/dist/node/chunks/node.js:19634:26)
+      at async viteTransformMiddleware (file:///C:/Users/achim/OneDrive/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/%EC%A1%B0%EC%84%A0%20%ED%95%B4%EC%BB%A4%ED%86%A4/k-shipbuild-hackathon/weldscan-dashboard/worker_ui/node_modules/vite/dist/node/chunks/node.js:19853:20)
+오후 7:57:03 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 7:57:23 [vite] Internal server error: Transform failed with 2 errors:
+
+[31m[PARSE_ERROR] [0mExpected corresponding JSX closing tag for 'div'.
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/App.tsx:807:13 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m688 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0mdiv[38;5;249m [0m[38;5;249mc[0m[38;5;249ml[0m[38;5;249ma[0m[38;5;249ms[0m[38;5;249ms[0m[38;5;249mN[0m[38;5;249ma[0m[38;5;249mm[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m"[0m[38;5;249mf[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249mx[0m[38;5;249m [0m[38;5;249mf[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249mx[0m[38;5;249m-[0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249ml[0m[38;5;249m [0m[38;5;249mg[0m[38;5;249ma[0m[38;5;249mp[0m[38;5;249m-[0m[38;5;249m2[0m[38;5;249m"[0m[38;5;249m>[0m
+ [38;5;240m    │[0m              ─┬─  
+ [38;5;240m    │[0m               ╰─── Opened here
+ [38;5;240m    │[0m 
+ [38;5;246m807 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0m[38;5;249m/[0msection[38;5;249m>[0m
+ [38;5;240m    │[0m             ───┬───  
+ [38;5;240m    │[0m                ╰───── Expected `</div>`
+[38;5;246m─────╯[0m
+
+[31m[PARSE_ERROR] [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/App.tsx:808:12 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m808 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m)[0m[38;5;249m}[0m
+ [38;5;240m    │[0m            │ 
+ [38;5;240m    │[0m            ╰─ 
+[38;5;246m─────╯[0m
+
+  Plugin: vite:oxc
+  File: C:/Users/achim/OneDrive/바탕 화면/조선 해커톤/k-shipbuild-hackathon/weldscan-dashboard/worker_ui/src/App.tsx
+      at transformWithOxc (file:///C:/Users/achim/OneDrive/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/%EC%A1%B0%EC%84%A0%20%ED%95%B4%EC%BB%A4%ED%86%A4/k-shipbuild-hackathon/weldscan-dashboard/worker_ui/node_modules/vite/dist/node/chunks/node.js:7208:19)
+      at TransformPluginContext.transform (file:///C:/Users/achim/OneDrive/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/%EC%A1%B0%EC%84%A0%20%ED%95%B4%EC%BB%A4%ED%86%A4/k-shipbuild-hackathon/weldscan-dashboard/worker_ui/node_modules/vite/dist/node/chunks/node.js:7280:26)
+      at EnvironmentPluginContainer.transform (file:///C:/Users/achim/OneDrive/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/%EC%A1%B0%EC%84%A0%20%ED%95%B4%EC%BB%A4%ED%86%A4/k-shipbuild-hackathon/weldscan-dashboard/worker_ui/node_modules/vite/dist/node/chunks/node.js:8172:51)
+      at async loadAndTransform (file:///C:/Users/achim/OneDrive/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/%EC%A1%B0%EC%84%A0%20%ED%95%B4%EC%BB%A4%ED%86%A4/k-shipbuild-hackathon/weldscan-dashboard/worker_ui/node_modules/vite/dist/node/chunks/node.js:19634:26)
+      at async viteTransformMiddleware (file:///C:/Users/achim/OneDrive/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/%EC%A1%B0%EC%84%A0%20%ED%95%B4%EC%BB%A4%ED%86%A4/k-shipbuild-hackathon/weldscan-dashboard/worker_ui/node_modules/vite/dist/node/chunks/node.js:19853:20)
+오후 7:57:23 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 9:28:00 [vite] (client) [Unhandled error] ReferenceError: showSimilarCases is not defined
+ > App src/App.tsx:1035:7
+    1033 |  
+    1034 |        {/* SIMILAR HISTORICAL CASES STRIP (CARD-FIRST, NO MODAL) — FULL-WIDTH, BELOW BOTH COLUMNS, SHOWN ONLY AFTER "A...
+    1035 |        {showSimilarCases && (
+         |         ^
+    1036 |          <section className="bg-[#161617] border-t border-[#41626A] p-4 flex flex-col" aria-labelledby="similar-cases-...
+    1037 |            <div className="flex items-start justify-between gap-3 mb-3 px-0.5 shrink-0">
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:28571:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:8030:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10569:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:12205:17
+ > runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:1045:29
+ > performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:19176:21
+ > workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:19004:40
+ > renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:18985:10
+ > performWorkOnRoot node_modules/react-dom/cjs/react-dom-client.development.js:18094:34
+
+오후 9:28:00 [vite] (client) [console.warn] An error occurred in the <App> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+오후 9:28:09 [vite] (client) [Unhandled error] ReferenceError: showSimilarCases is not defined
+ > App src/App.tsx:1035:7
+    1033 |  
+    1034 |        {/* SIMILAR HISTORICAL CASES STRIP (CARD-FIRST, NO MODAL) — FULL-WIDTH, BELOW BOTH COLUMNS, SHOWN ONLY AFTER "A...
+    1035 |        {showSimilarCases && (
+         |         ^
+    1036 |          <section className="bg-[#161617] border-t border-[#41626A] p-4 flex flex-col" aria-labelledby="similar-cases-...
+    1037 |            <div className="flex items-start justify-between gap-3 mb-3 px-0.5 shrink-0">
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:28571:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:8030:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10569:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:12205:17
+ > runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:1045:29
+ > performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:19176:21
+ > workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:19004:40
+ > renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:18985:10
+ > performWorkOnRoot node_modules/react-dom/cjs/react-dom-client.development.js:18094:34
+
+오후 9:28:09 [vite] (client) [console.warn] An error occurred in the <App> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+오후 9:28:13 [vite] (client) [Unhandled error] ReferenceError: showSimilarCases is not defined
+ > App src/App.tsx:1070:7
+    1068 |  
+    1069 |        {/* SIMILAR HISTORICAL CASES STRIP (CARD-FIRST, NO MODAL) — FULL-WIDTH, BELOW BOTH COLUMNS, SHOWN ONLY AFTER "A...
+    1070 |        {showSimilarCases && (
+         |         ^
+    1071 |          <section className="bg-[#161617] border-t border-[#41626A] p-4 flex flex-col" aria-labelledby="similar-cases-...
+    1072 |            <div className="flex items-start justify-between gap-3 mb-3 px-0.5 shrink-0">
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:28571:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:8030:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10569:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:12205:17
+ > runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:1045:29
+ > performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:19176:21
+ > workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:19004:40
+ > renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:18985:10
+ > performWorkOnRoot node_modules/react-dom/cjs/react-dom-client.development.js:18094:34
+
+오후 9:28:13 [vite] (client) [console.warn] An error occurred in the <App> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+오후 9:28:25 [vite] (client) [Unhandled error] ReferenceError: showSimilarCases is not defined
+ > App src/App.tsx:1070:7
+    1068 |  
+    1069 |        {/* SIMILAR HISTORICAL CASES STRIP (CARD-FIRST, NO MODAL) — FULL-WIDTH, BELOW BOTH COLUMNS, SHOWN ONLY AFTER "A...
+    1070 |        {showSimilarCases && (
+         |         ^
+    1071 |          <section className="bg-[#161617] border-t border-[#41626A] p-4 flex flex-col" aria-labelledby="similar-cases-...
+    1072 |            <div className="flex items-start justify-between gap-3 mb-3 px-0.5 shrink-0">
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:28571:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:8030:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10569:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:12205:17
+ > runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:1045:29
+ > performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:19176:21
+ > workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:19004:40
+ > renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:18985:10
+ > performWorkOnRoot node_modules/react-dom/cjs/react-dom-client.development.js:18094:34
+
+오후 9:28:25 [vite] (client) [console.warn] An error occurred in the <App> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
