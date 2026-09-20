@@ -63,7 +63,7 @@ ORG_LOGOS = {
 
 # 관리자 화면만 기존 HTML 사용
 ADMIN_DASHBOARD = APP_DIR / "weldscan_dashboard.html"
-WORKER_UI_URL = "http://localhost:8443"
+WORKER_UI_URL = "https://k-shipbuild-hackathon.vercel.app"
 
 # 로그인 계정
 ACCOUNTS = {
