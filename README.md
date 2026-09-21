@@ -3,7 +3,6 @@
 **용접부 RT(방사선투과검사) 이미지에서 결함을 탐지하고, 과거 유사사례와 한국선급(KR) 규정을 근거로 검사 보고서를 자동 생성하는 조선업 품질검사 보조 시스템**
 
 🔗 **배포**: [k-shipbuild-hackathon.streamlit.app](https://k-shipbuild-hackathon.streamlit.app/)
-📄 **발표자료(PPT)**: _추가 예정_
 
 ---
 
@@ -57,6 +56,23 @@ RT 이미지 입력
 ## 관제 대시보드
 
 [`weldscan-dashboard/`](weldscan-dashboard/)는 용접 NDT 판정과 KR 규정 판정의 일관성을 한 화면에서 확인하는 관리자 대시보드와, 검사자·책임검사원용 판독 화면으로 구성됩니다. 로컬 실행 방법과 화면 구성은 해당 README를 참고하세요. 배포된 버전은 상단 링크로 바로 확인할 수 있습니다.
+
+## 발표자료 (기획안)
+
+### 01. 배경 및 목적
+![배경 및 목적](docs/ppt/01-background.png)
+
+### 02. 아이디어 및 활용 AI 기술
+![아이디어 및 활용 AI 기술](docs/ppt/02-pipeline-ai.png)
+
+### 03. 구현 계획
+![구현 계획](docs/ppt/03-implementation.png)
+
+### 04. 필요 데이터 및 확보 방안
+![필요 데이터 및 확보 방안](docs/ppt/04-data-plan.png)
+
+### 05. 예상효과
+![예상효과](docs/ppt/05-expected-impact.png)
 
 ## 라이선스 및 주의사항
 
